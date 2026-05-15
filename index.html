@@ -46,11 +46,17 @@
             display: grid;
             grid-template-columns: 1.05fr 0.95fr;
             gap: 24px;
-            align-items: stretch;
+            align-items: start;
+        }
+
+        .hero-stack {
+            display: grid;
+            gap: 18px;
         }
 
         .panel,
-        .form-card {
+        .form-card,
+        .value-section {
             background: var(--card);
             border-radius: 28px;
             box-shadow: 0 24px 60px rgba(17, 12, 32, 0.22);
@@ -62,6 +68,10 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+        }
+
+        .value-section {
+            padding: 24px;
         }
 
         .eyebrow {
@@ -121,6 +131,69 @@
             border-radius: 18px;
             color: #312641;
             font-weight: 500;
+        }
+
+        .value-header {
+            margin-bottom: 16px;
+        }
+
+        .value-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 6px;
+        }
+
+        .value-copy {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .value-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .value-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            border-radius: 18px;
+            background: linear-gradient(180deg, rgba(246, 243, 251, 0.92) 0%, rgba(255, 255, 255, 0.98) 100%);
+            border: 1px solid rgba(109, 40, 217, 0.1);
+        }
+
+        .value-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 40px;
+            background: rgba(109, 40, 217, 0.08);
+            color: var(--plum-dark);
+        }
+
+        .value-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .value-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.98rem;
+            line-height: 1.25;
+            margin-bottom: 5px;
+        }
+
+        .value-card p {
+            color: var(--muted);
+            font-size: 0.92rem;
+            line-height: 1.55;
         }
 
         .check {
@@ -287,14 +360,17 @@
 
             .panel { padding: 28px; }
             .form-card { padding: 26px; }
+            .value-section { padding: 22px; }
         }
 
         @media (max-width: 560px) {
             .container { padding: 20px 14px; }
             .panel,
-            .form-card { border-radius: 22px; }
+            .form-card,
+            .value-section { border-radius: 22px; }
             .panel { padding: 24px; }
             .form-card { padding: 22px; }
+            .value-section { padding: 20px; }
             .grid { grid-template-columns: 1fr; gap: 0; }
             .form-top {
                 flex-direction: column;
@@ -327,6 +403,24 @@
             .support-list li {
                 padding: 11px 13px;
             }
+            .value-header {
+                margin-bottom: 14px;
+            }
+            .value-card {
+                padding: 14px;
+            }
+            .value-icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 12px;
+                flex-basis: 36px;
+            }
+            .value-card h3 {
+                font-size: 0.95rem;
+            }
+            .value-card p {
+                font-size: 0.89rem;
+            }
             .reassurance { margin-top: 16px; }
         }
     </style>
@@ -335,21 +429,78 @@
     <div class="container">
         <div>
             <div class="shell">
-                <section class="panel">
-                    <div class="eyebrow">Founding Agent Beta</div>
-                    <div class="logo-wrap">
-                        <img class="logo" id="hero-logo" src="./listing-amplified-logo.jpg" alt="Listing Amplified logo">
-                    </div>
-                    <h1>Join the Listing Amplified Founding Agent Waitlist</h1>
-                    <p class="subtitle">Built for listing agents and buyer agents who want early access, better visibility, and a chance to help shape what comes next.</p>
+                <div class="hero-stack">
+                    <section class="panel">
+                        <div class="eyebrow">Founding Agent Beta</div>
+                        <div class="logo-wrap">
+                            <img class="logo" id="hero-logo" src="./listing-amplified-logo.jpg" alt="Listing Amplified logo">
+                        </div>
+                        <h1>Join the Listing Amplified Founding Agent Waitlist</h1>
+                        <p class="subtitle">Built for listing agents and buyer agents who want early access, better visibility, and a chance to help shape what comes next.</p>
 
-                    <ul class="support-list">
-                        <li><span class="check">✓</span><span>Early beta access before public launch</span></li>
-                        <li><span class="check">✓</span><span>Built for both listing agents and buyer agents</span></li>
-                        <li><span class="check">✓</span><span>Help shape an agent-powered listing network</span></li>
-                        <li><span class="check">✓</span><span>Referral access for founding members</span></li>
-                    </ul>
-                </section>
+                        <ul class="support-list">
+                            <li><span class="check">✓</span><span>Early beta access before public launch</span></li>
+                            <li><span class="check">✓</span><span>Built for both listing agents and buyer agents</span></li>
+                            <li><span class="check">✓</span><span>Help shape an agent-powered listing network</span></li>
+                            <li><span class="check">✓</span><span>Referral access for founding members</span></li>
+                        </ul>
+                    </section>
+
+                    <section class="value-section">
+                        <div class="value-header">
+                            <h2 class="value-title">Why Founding Agents Are Joining</h2>
+                            <p class="value-copy">A smarter way to expand visibility, share faster, and build momentum before the public launch.</p>
+                        </div>
+
+                        <div class="value-grid">
+                            <article class="value-card">
+                                <span class="value-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 12h7"/>
+                                        <path d="M10 6l6-2v16l-6-2"/>
+                                        <path d="M18 8.5a4.5 4.5 0 0 1 0 7"/>
+                                    </svg>
+                                </span>
+                                <div>
+                                    <h3>Expand Your Listing Reach</h3>
+                                    <p>Get your listings in front of more agents and buyers through collaborative sharing and ready-made marketing assets.</p>
+                                </div>
+                            </article>
+
+                            <article class="value-card">
+                                <span class="value-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3.5" y="4" width="17" height="14" rx="3"/>
+                                        <path d="M7 9h10"/>
+                                        <path d="M7 13h6"/>
+                                        <path d="M16.5 18v2"/>
+                                    </svg>
+                                </span>
+                                <div>
+                                    <h3>Ready-to-Share Marketing Content</h3>
+                                    <p>Captions, images, reels, and social-ready content designed to help agents share listings faster.</p>
+                                </div>
+                            </article>
+
+                            <article class="value-card">
+                                <span class="value-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="8" cy="8" r="2.5"/>
+                                        <circle cx="16" cy="7" r="2.5"/>
+                                        <circle cx="12" cy="16" r="2.5"/>
+                                        <path d="M10 9.5l4-1"/>
+                                        <path d="M9.5 10.5l1.8 3"/>
+                                        <path d="M14.7 9.2l-1.6 4.1"/>
+                                    </svg>
+                                </span>
+                                <div>
+                                    <h3>Agent-Powered Visibility Network</h3>
+                                    <p>Join a growing network of agents helping amplify listings beyond the MLS and traditional marketing channels.</p>
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+                </div>
 
                 <section class="form-card">
                     <div class="form-top">
