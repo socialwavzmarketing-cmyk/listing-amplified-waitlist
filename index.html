@@ -152,6 +152,13 @@
             line-height: 1.6;
         }
 
+        .founding-note {
+            margin-top: 16px;
+            color: #4b3f63;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
         .value-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -208,6 +215,55 @@
             font-size: 0.92rem;
             line-height: 1.6;
             margin: 0;
+        }
+
+        .how-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            padding: 18px 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(109, 40, 217, 0.1);
+            box-shadow: 0 12px 28px rgba(17, 12, 32, 0.08);
+        }
+
+        .how-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .how-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 38px;
+            background: rgba(109, 40, 217, 0.08);
+            color: var(--plum-dark);
+        }
+
+        .how-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .how-step strong {
+            display: block;
+            font-size: 0.9rem;
+            line-height: 1.35;
+            color: #23192f;
+        }
+
+        .beta-note {
+            color: #74688a;
+            font-size: 0.88rem;
+            margin-top: 6px;
+            line-height: 1.5;
         }
 
         .check {
@@ -376,6 +432,12 @@
                 gap: 12px;
             }
 
+            .how-strip {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 16px;
+            }
+
             .panel { padding: 28px; }
             .form-card { padding: 26px; }
             .value-section { padding: 22px; }
@@ -440,6 +502,13 @@
             .value-card p {
                 font-size: 0.89rem;
             }
+            .how-step strong {
+                font-size: 0.88rem;
+            }
+            .founding-note,
+            .beta-note {
+                font-size: 0.85rem;
+            }
             .reassurance { margin-top: 16px; }
         }
     </style>
@@ -463,6 +532,7 @@
                             <li><span class="check">✓</span><span>Help shape an agent-powered listing network</span></li>
                             <li><span class="check">✓</span><span>Referral access for founding members</span></li>
                         </ul>
+                        <p class="founding-note">Founding members get in early, help shape the platform, and build momentum through more collaborative listing marketing from the start.</p>
                     </section>
 
                     <section class="value-section">
@@ -521,11 +591,47 @@
                     </section>
                 </div>
 
+                <section class="how-strip" aria-label="How Listing Amplified works">
+                    <div class="how-step">
+                        <span class="how-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M7 4.5h10"/>
+                                <path d="M7 9h10"/>
+                                <path d="M7 13.5h6"/>
+                                <rect x="4" y="3" width="16" height="18" rx="3"/>
+                            </svg>
+                        </span>
+                        <strong>Add or share listings</strong>
+                    </div>
+                    <div class="how-step">
+                        <span class="how-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="7" cy="12" r="2.5"/>
+                                <circle cx="17" cy="7" r="2.5"/>
+                                <circle cx="17" cy="17" r="2.5"/>
+                                <path d="M9.2 10.8 14.8 8.2"/>
+                                <path d="M9.2 13.2 14.8 15.8"/>
+                            </svg>
+                        </span>
+                        <strong>Agents amplify across their networks</strong>
+                    </div>
+                    <div class="how-step">
+                        <span class="how-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 16l5-5 4 4 7-8"/>
+                                <path d="M20 10V7h-3"/>
+                            </svg>
+                        </span>
+                        <strong>Listings gain more visibility and reach</strong>
+                    </div>
+                </section>
+
                 <section class="form-card">
                     <div class="form-top">
                         <div>
                             <div class="form-title">Request Founding Agent Access</div>
                             <p class="form-copy">Limited founding access in select beta markets.</p>
+                            <p class="beta-note">Initial founding access focused on select California beta markets.</p>
                         </div>
                         <div class="steps" aria-label="Waitlist steps">
                             <span class="step-dot active" id="dot-1">1</span>
