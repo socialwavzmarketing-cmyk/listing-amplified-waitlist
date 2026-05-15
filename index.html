@@ -338,7 +338,7 @@
                 <section class="panel">
                     <div class="eyebrow">Founding Agent Beta</div>
                     <div class="logo-wrap">
-                        <img class="logo" src="./listing-amplified-logo.jpg" alt="Listing Amplified logo">
+                        <img class="logo" id="hero-logo" src="./listing-amplified-logo.jpg" alt="Listing Amplified logo">
                     </div>
                     <h1>Join the Listing Amplified Founding Agent Waitlist</h1>
                     <p class="subtitle">Built for listing agents and buyer agents who want early access, better visibility, and a chance to help shape what comes next.</p>
@@ -427,7 +427,38 @@
         const dot2 = document.getElementById('dot-2');
         const nextBtn = document.getElementById('next-btn');
         const backBtn = document.getElementById('back-btn');
+        const heroLogo = document.getElementById('hero-logo');
         const stepOneFields = ['firstName', 'lastName', 'email', 'agentType'].map((id) => document.getElementById(id));
+
+        function removeLogoBackground(image) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d', { willReadFrequently: true });
+            if (!context) return;
+
+            canvas.width = image.naturalWidth;
+            canvas.height = image.naturalHeight;
+            context.drawImage(image, 0, 0);
+
+            const frame = context.getImageData(0, 0, canvas.width, canvas.height);
+            const pixels = frame.data;
+
+            for (let i = 0; i < pixels.length; i += 4) {
+                const red = pixels[i];
+                const green = pixels[i + 1];
+                const blue = pixels[i + 2];
+                const brightness = (red + green + blue) / 3;
+                const minChannel = Math.min(red, green, blue);
+
+                if (brightness > 244 && minChannel > 236) {
+                    pixels[i + 3] = 0;
+                } else if (brightness > 228 && minChannel > 210) {
+                    pixels[i + 3] = Math.max(0, Math.round((240 - brightness) * 9));
+                }
+            }
+
+            context.putImageData(frame, 0, 0);
+            image.src = canvas.toDataURL('image/png');
+        }
 
         function showStep(step) {
             const onStepOne = step === 1;
@@ -435,6 +466,14 @@
             step2.classList.toggle('active', !onStepOne);
             dot1.className = `step-dot ${onStepOne ? 'active' : 'done'}`;
             dot2.className = `step-dot ${onStepOne ? '' : 'active'}`;
+        }
+
+        if (heroLogo) {
+            if (heroLogo.complete) {
+                removeLogoBackground(heroLogo);
+            } else {
+                heroLogo.addEventListener('load', () => removeLogoBackground(heroLogo), { once: true });
+            }
         }
 
         nextBtn.addEventListener('click', () => {
