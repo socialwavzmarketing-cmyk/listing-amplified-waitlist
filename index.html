@@ -3,182 +3,429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listing Amplified - Join the Waitlist</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Listing Amplified - Founding Agent Waitlist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --plum: #6d28d9;
+            --plum-dark: #4c1d95;
+            --blue: #2563eb;
+            --blue-dark: #1d4ed8;
+            --ink: #140f1f;
+            --muted: #6f6481;
+            --line: #e8e3f2;
+            --card: rgba(255, 255, 255, 0.96);
+            --card-soft: #f6f3fb;
+            --success: #5b21b6;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: #0f0b14;
-            background: linear-gradient(135deg, #4a1a6b 0%, #2b1055 40%, #1a1a6c 100%);
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top left, rgba(168, 85, 247, 0.25), transparent 28%),
+                radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.2), transparent 30%),
+                linear-gradient(135deg, #3b0764 0%, #4c1d95 38%, #1d4ed8 100%);
             min-height: 100vh;
         }
+
         .container {
-            max-width: 600px;
+            max-width: 1120px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .shell {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .panel,
+        .form-card {
+            background: var(--card);
+            border-radius: 28px;
+            box-shadow: 0 24px 60px rgba(17, 12, 32, 0.22);
+            backdrop-filter: blur(12px);
+        }
+
+        .panel {
+            padding: 48px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            min-height: 100vh;
         }
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 1rem;
-            padding: 48px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            backdrop-filter: blur(10px);
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(109, 40, 217, 0.1);
+            color: var(--plum-dark);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 22px;
         }
+
         .logo {
             font-family: 'Montserrat', sans-serif;
-            font-size: 2em;
-            font-weight: 700;
-            color: #7a1fa2;
-            margin-bottom: 8px;
+            font-size: 2.1rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            margin-bottom: 18px;
+            background: linear-gradient(135deg, var(--plum) 0%, var(--blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .tagline {
-            color: #6b5b7a;
-            font-size: 0.95em;
-            margin-bottom: 32px;
-            font-family: 'Inter', sans-serif;
-        }
+
         h1 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.8em;
-            color: #0f0b14;
-            margin-bottom: 16px;
-            line-height: 1.3;
+            font-size: clamp(2.1rem, 4vw, 3.35rem);
+            line-height: 1.06;
+            letter-spacing: -0.04em;
+            margin-bottom: 18px;
+        }
+
+        .subtitle {
+            font-size: 1.06rem;
+            line-height: 1.7;
+            color: var(--muted);
+            margin-bottom: 28px;
+            max-width: 56ch;
+        }
+
+        .support-list {
+            list-style: none;
+            display: grid;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        .support-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--card-soft);
+            border: 1px solid rgba(109, 40, 217, 0.08);
+            border-radius: 18px;
+            color: #312641;
+            font-weight: 500;
+        }
+
+        .check {
+            width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 24px;
+            background: linear-gradient(135deg, var(--plum) 0%, var(--blue) 100%);
+            color: white;
+            font-size: 0.82rem;
+            font-weight: 700;
+            margin-top: 1px;
+        }
+
+        .form-card {
+            padding: 32px;
+        }
+
+        .form-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .form-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.35rem;
             font-weight: 700;
         }
-        .subtitle {
-            color: #6b5b7a;
-            font-size: 1.1em;
-            margin-bottom: 32px;
-            font-family: 'Inter', sans-serif;
+
+        .form-copy {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-top: 6px;
         }
-        .benefits {
-            text-align: left;
-            margin: 32px 0;
-            padding: 24px;
-            background: #f3eff8;
-            border-radius: 1rem;
+
+        .steps {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .benefits h3 {
-            font-family: 'Montserrat', sans-serif;
-            color: #7a1fa2;
-            margin-bottom: 16px;
-            font-size: 1.1em;
-            font-weight: 600;
+
+        .step-dot {
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            color: var(--muted);
+            background: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.92rem;
         }
-        .benefits ul {
-            list-style: none;
-            padding: 0;
-        }
-        .benefits li {
-            padding: 8px 0;
-            padding-left: 28px;
-            position: relative;
-            color: #4a3f52;
-            font-family: 'Inter', sans-serif;
-        }
-        .benefits li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #7a1fa2;
-            font-weight: bold;
-        }
-        .form-group {
-            margin-top: 32px;
-        }
-        input[type="email"] {
-            width: 100%;
-            padding: 16px 20px;
-            font-size: 1em;
-            font-family: 'Inter', sans-serif;
-            border: 2px solid #e0dce5;
-            border-radius: 1rem;
-            outline: none;
-            transition: border-color 0.3s;
-            margin-bottom: 16px;
-            color: #0f0b14;
-        }
-        input[type="email"]:focus {
-            border-color: #7a1fa2;
-        }
-        input[type="email"]::placeholder {
-            color: #9b8fa8;
-        }
-        .cta-button {
-            width: 100%;
-            padding: 16px 32px;
-            background: #7a1fa2;
+
+        .step-dot.active,
+        .step-dot.done {
+            border-color: transparent;
             color: white;
-            font-size: 1.1em;
+            background: linear-gradient(135deg, var(--plum) 0%, var(--blue) 100%);
+        }
+
+        .step-panel { display: none; }
+        .step-panel.active { display: block; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .field.full { grid-column: 1 / -1; }
+
+        label {
+            font-size: 0.92rem;
             font-weight: 600;
-            font-family: 'Montserrat', sans-serif;
+            color: #2a2038;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 15px 16px;
+            border-radius: 16px;
+            border: 1.5px solid var(--line);
+            background: white;
+            font: inherit;
+            color: var(--ink);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: rgba(109, 40, 217, 0.55);
+            box-shadow: 0 0 0 4px rgba(109, 40, 217, 0.12);
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .btn {
+            appearance: none;
             border: none;
-            border-radius: 1rem;
+            border-radius: 16px;
+            padding: 15px 18px;
+            font: inherit;
+            font-weight: 700;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            transition: transform 0.18s, box-shadow 0.18s, opacity 0.18s;
         }
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(122, 31, 162, 0.3);
-            background: #681a8a;
+
+        .btn:hover { transform: translateY(-1px); }
+
+        .btn-primary {
+            flex: 1;
+            color: white;
+            background: linear-gradient(135deg, var(--plum) 0%, var(--blue) 100%);
+            box-shadow: 0 16px 24px rgba(76, 29, 149, 0.22);
         }
-        .privacy {
-            margin-top: 20px;
-            font-size: 0.85em;
-            color: #9b8fa8;
-            font-family: 'Inter', sans-serif;
+
+        .btn-secondary {
+            background: #f4f1fa;
+            color: #3f3153;
         }
-        .footer {
-            margin-top: 32px;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9em;
-            font-family: 'Inter', sans-serif;
+
+        .reassurance {
+            margin-top: 18px;
+            color: var(--muted);
+            font-size: 0.86rem;
             text-align: center;
         }
-        @media (max-width: 480px) {
-            .card { padding: 32px 24px; }
-            h1 { font-size: 1.5em; }
-            .logo { font-size: 1.7em; }
+
+        .footer {
+            margin-top: 22px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 920px) {
+            .shell {
+                grid-template-columns: 1fr;
+                max-width: 680px;
+                margin: 0 auto;
+            }
+
+            .panel,
+            .form-card { padding: 28px; }
+        }
+
+        @media (max-width: 560px) {
+            .container { padding: 20px 14px; }
+            .panel,
+            .form-card { border-radius: 22px; }
+            .grid { grid-template-columns: 1fr; gap: 0; }
+            .form-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .actions {
+                flex-direction: column;
+            }
+            h1 { font-size: 1.95rem; }
+            .logo { font-size: 1.7rem; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="card">
-            <div class="logo">Listing Amplified</div>
-            <div class="tagline">Get Your Listings Seen by More Buyers</div>
-            
-            <h1>Be the First to Amplify Your Listings</h1>
-            <p class="subtitle">Join the waitlist for early access. Launching soon for agents in East Contra Costa County.</p>
-            
-            <div class="benefits">
-                <h3>What You'll Get:</h3>
-                <ul>
-                    <li>Instant exposure to hundreds of local agents</li>
-                    <li>Track views, shares, and engagement</li>
-                    <li>Connect with qualified buyers faster</li>
-                    <li>Early access pricing for founding members</li>
-                </ul>
+        <div>
+            <div class="shell">
+                <section class="panel">
+                    <div class="eyebrow">Founding Agent Beta</div>
+                    <div class="logo">Listing Amplified</div>
+                    <h1>Join the Listing Amplified Founding Agent Waitlist</h1>
+                    <p class="subtitle">Built for listing agents and buyer agents who want early access, better visibility, and a chance to help shape what comes next.</p>
+
+                    <ul class="support-list">
+                        <li><span class="check">✓</span><span>Early beta access before public launch</span></li>
+                        <li><span class="check">✓</span><span>Built for both listing agents and buyer agents</span></li>
+                        <li><span class="check">✓</span><span>Help shape an agent-powered listing network</span></li>
+                        <li><span class="check">✓</span><span>Referral access for founding members</span></li>
+                    </ul>
+                </section>
+
+                <section class="form-card">
+                    <div class="form-top">
+                        <div>
+                            <div class="form-title">Become a Founding Agent</div>
+                            <p class="form-copy">Quick two-step signup for early beta consideration.</p>
+                        </div>
+                        <div class="steps" aria-label="Waitlist steps">
+                            <span class="step-dot active" id="dot-1">1</span>
+                            <span class="step-dot" id="dot-2">2</span>
+                        </div>
+                    </div>
+
+                    <form id="waitlist-form">
+                        <div class="step-panel active" id="step-1">
+                            <div class="grid">
+                                <div class="field">
+                                    <label for="firstName">First name</label>
+                                    <input id="firstName" name="firstName" type="text" autocomplete="given-name" required>
+                                </div>
+                                <div class="field">
+                                    <label for="lastName">Last name</label>
+                                    <input id="lastName" name="lastName" type="text" autocomplete="family-name" required>
+                                </div>
+                                <div class="field full">
+                                    <label for="email">Email</label>
+                                    <input id="email" name="email" type="email" autocomplete="email" required>
+                                </div>
+                                <div class="field full">
+                                    <label for="agentType">Agent type</label>
+                                    <select id="agentType" name="agentType" required>
+                                        <option value="" selected disabled>Select agent type</option>
+                                        <option value="Listing Agent">Listing Agent</option>
+                                        <option value="Buyer Agent">Buyer Agent</option>
+                                        <option value="Both">Both</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <button class="btn btn-primary" type="button" id="next-btn">Continue</button>
+                            </div>
+                        </div>
+
+                        <div class="step-panel" id="step-2">
+                            <div class="grid">
+                                <div class="field full">
+                                    <label for="brokerage">Brokerage <span style="color:#8a7d9d;font-weight:500;">optional</span></label>
+                                    <input id="brokerage" name="brokerage" type="text" autocomplete="organization">
+                                </div>
+                                <div class="field full">
+                                    <label for="serviceArea">City/County served <span style="color:#8a7d9d;font-weight:500;">optional</span></label>
+                                    <input id="serviceArea" name="serviceArea" type="text" autocomplete="address-level2">
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <button class="btn btn-secondary" type="button" id="back-btn">Back</button>
+                                <button class="btn btn-primary" type="submit">Become a Founding Agent</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <p class="reassurance">No spam. Just early access updates and beta opportunities.</p>
+                </section>
             </div>
-            
-            <div class="form-group">
-                <input type="email" placeholder="Enter your email address" required>
-                <button class="cta-button">Join the Waitlist</button>
-            </div>
-            
-            <p class="privacy">We respect your privacy. No spam, ever.</p>
-        </div>
-        
-        <div class="footer">
-            <p>© 2026 Listing Amplified. Built with 💜 in Brentwood, CA.</p>
+
+            <div class="footer">© 2026 Listing Amplified</div>
         </div>
     </div>
+
+    <script>
+        const form = document.getElementById('waitlist-form');
+        const step1 = document.getElementById('step-1');
+        const step2 = document.getElementById('step-2');
+        const dot1 = document.getElementById('dot-1');
+        const dot2 = document.getElementById('dot-2');
+        const nextBtn = document.getElementById('next-btn');
+        const backBtn = document.getElementById('back-btn');
+        const stepOneFields = ['firstName', 'lastName', 'email', 'agentType'].map((id) => document.getElementById(id));
+
+        function showStep(step) {
+            const onStepOne = step === 1;
+            step1.classList.toggle('active', onStepOne);
+            step2.classList.toggle('active', !onStepOne);
+            dot1.className = `step-dot ${onStepOne ? 'active' : 'done'}`;
+            dot2.className = `step-dot ${onStepOne ? '' : 'active'}`;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            const valid = stepOneFields.every((field) => field.reportValidity());
+            if (!valid) return;
+            showStep(2);
+        });
+
+        backBtn.addEventListener('click', () => showStep(1));
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const submitButton = form.querySelector('button[type="submit"]');
+            submitButton.textContent = 'You\'re on the list';
+            submitButton.disabled = true;
+            submitButton.style.opacity = '0.9';
+        });
+    </script>
 </body>
 </html>
