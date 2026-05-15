@@ -78,16 +78,14 @@
             margin-bottom: 18px;
         }
 
-        .logo {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.1rem;
-            font-weight: 800;
-            letter-spacing: -0.04em;
+        .logo-wrap {
             margin-bottom: 14px;
-            background: linear-gradient(135deg, var(--plum) 0%, var(--blue) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        }
+
+        .logo {
+            display: block;
+            width: min(100%, 320px);
+            height: auto;
         }
 
         h1 {
@@ -310,9 +308,11 @@
                 margin-bottom: 14px;
                 padding: 9px 13px;
             }
+            .logo-wrap {
+                margin-bottom: 12px;
+            }
             .logo {
-                font-size: 1.7rem;
-                margin-bottom: 10px;
+                width: min(100%, 250px);
             }
             h1 {
                 font-size: 1.78rem;
@@ -337,7 +337,9 @@
             <div class="shell">
                 <section class="panel">
                     <div class="eyebrow">Founding Agent Beta</div>
-                    <div class="logo">Listing Amplified</div>
+                    <div class="logo-wrap">
+                        <img class="logo" src="./listing-amplified-logo.jpg" alt="Listing Amplified logo">
+                    </div>
                     <h1>Join the Listing Amplified Founding Agent Waitlist</h1>
                     <p class="subtitle">Built for listing agents and buyer agents who want early access, better visibility, and a chance to help shape what comes next.</p>
 
