@@ -108,11 +108,11 @@
         }
 
         .subtitle {
-            font-size: 1.06rem;
-            line-height: 1.7;
+            font-size: 1.04rem;
+            line-height: 1.65;
             color: var(--muted);
             margin-bottom: 26px;
-            max-width: 56ch;
+            max-width: 54ch;
         }
 
         .support-list {
@@ -182,7 +182,7 @@
         .value-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 14px;
+            gap: 18px;
         }
 
         .value-card {
@@ -196,6 +196,13 @@
             background: linear-gradient(180deg, rgba(54, 29, 102, 0.96) 0%, rgba(34, 45, 112, 0.96) 100%);
             border: 1px solid rgba(196, 181, 253, 0.16);
             box-shadow: 0 18px 34px rgba(17, 12, 32, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(196, 181, 253, 0.24);
+            box-shadow: 0 22px 40px rgba(17, 12, 32, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.06);
         }
 
         .value-icon {
@@ -241,11 +248,18 @@
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 12px;
+            margin-top: 8px;
             padding: 18px 20px;
             border-radius: 20px;
             background: rgba(255, 255, 255, 0.9);
             border: 1px solid rgba(109, 40, 217, 0.1);
             box-shadow: 0 12px 28px rgba(17, 12, 32, 0.08);
+            transition: box-shadow 0.22s ease, transform 0.22s ease;
+        }
+
+        .how-strip:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 32px rgba(17, 12, 32, 0.1);
         }
 
         .how-step {
@@ -410,7 +424,7 @@
             font: inherit;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.18s, box-shadow 0.18s, opacity 0.18s;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease, background 0.18s ease;
         }
 
         .btn:hover { transform: translateY(-1px); }
@@ -422,9 +436,17 @@
             box-shadow: 0 16px 24px rgba(76, 29, 149, 0.22);
         }
 
+        .btn-primary:hover {
+            box-shadow: 0 18px 28px rgba(76, 29, 149, 0.28);
+        }
+
         .btn-secondary {
             background: #f4f1fa;
             color: #3f3153;
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 10px 20px rgba(63, 49, 83, 0.1);
         }
 
         .reassurance {
@@ -450,12 +472,13 @@
 
             .value-grid {
                 grid-template-columns: 1fr;
-                gap: 12px;
+                gap: 14px;
             }
 
             .how-strip {
                 grid-template-columns: 1fr;
                 gap: 10px;
+                margin-top: 10px;
                 padding: 16px;
             }
 
@@ -473,6 +496,9 @@
             .form-card { padding: 22px; }
             .value-section { padding: 20px; }
             .grid { grid-template-columns: 1fr; gap: 0; }
+            .btn {
+                min-height: 52px;
+            }
             .form-top {
                 flex-direction: column;
                 align-items: flex-start;
@@ -493,16 +519,20 @@
             }
             h1 {
                 font-size: 1.78rem;
-                line-height: 1.02;
+                line-height: 1.05;
                 margin-bottom: 14px;
             }
-            .subtitle { margin-bottom: 20px; }
+            .subtitle {
+                font-size: 0.98rem;
+                line-height: 1.58;
+                margin-bottom: 20px;
+            }
             .support-list {
                 gap: 10px;
                 margin-top: 6px;
             }
             .support-list li {
-                padding: 11px 13px;
+                padding: 12px 13px 12px 16px;
             }
             .value-header {
                 margin-bottom: 14px;
@@ -545,7 +575,7 @@
                             <img class="logo" id="hero-logo" src="./listing-amplified-logo.jpg" alt="Listing Amplified logo">
                         </div>
                         <h1>Expand Your Reach with an Agent-Powered Visibility Network</h1>
-                        <p class="subtitle">Built for agents who want more reach than the MLS alone can deliver, Listing Amplified gives founding members early access to a collaborative network designed to increase exposure, sharing, and marketing momentum for every listing.</p>
+                        <p class="subtitle">Built for agents who want more reach than the MLS alone can deliver, Listing Amplified gives founding members early access to a collaborative network designed to increase exposure, sharing, and momentum around every listing.</p>
 
                         <ul class="support-list">
                             <li><span class="check">✓</span><span>Early beta access before public launch</span></li>
