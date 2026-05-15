@@ -11,7 +11,7 @@
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             color: #0f0b14;
-            background: #f3eff8;
+            background: linear-gradient(135deg, #2b1055 0%, #1a1a6c 50%, #0f0b14 100%);
             min-height: 100vh;
         }
         .container {
@@ -24,11 +24,12 @@
             min-height: 100vh;
         }
         .card {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 1rem;
             padding: 48px;
-            box-shadow: 0 4px 24px rgba(15, 11, 20, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             text-align: center;
+            backdrop-filter: blur(10px);
         }
         .logo {
             font-family: 'Montserrat', sans-serif;
@@ -136,7 +137,7 @@
         }
         .footer {
             margin-top: 32px;
-            color: #9b8fa8;
+            color: rgba(255, 255, 255, 0.7);
             font-size: 0.9em;
             font-family: 'Inter', sans-serif;
             text-align: center;
