@@ -117,6 +117,25 @@ function buildMeta(record, existingMeta = []) {
   return uniqueStrings([...(Array.isArray(existingMeta) ? existingMeta : []), ...additions]);
 }
 
+function buildCustomFields(record) {
+  const fields = [];
+  if (record.signupSource) fields.push({ name: 'source', value: record.signupSource });
+  if (record.role) fields.push({ name: 'role', value: record.role });
+  if (record.serviceArea) fields.push({ name: 'service-area', value: record.serviceArea });
+  return fields;
+}
+
+function mergeCustomFields(existing = [], incoming = []) {
+  const map = new Map();
+  for (const f of existing) {
+    if (f?.name) map.set(f.name, f);
+  }
+  for (const f of incoming) {
+    if (f?.name) map.set(f.name, f);
+  }
+  return Array.from(map.values());
+}
+
 async function ensureRequiredTags(gccApiKey) {
   const tagIds = { ...REQUIRED_TAGS };
   const existing = await fetchJson(`${GCC_BASE}/tags?limit=2000`, {
@@ -188,7 +207,7 @@ async function createOrUpdateGccContact(gccApiKey, record) {
     ...base,
     ...minimalPayload(base),
     meta: buildMeta(record, base.meta),
-    customFields: Array.isArray(base.customFields) ? base.customFields : []
+    customFields: mergeCustomFields(base.customFields, buildCustomFields(record))
   });
 
   if (!existingContact) {
