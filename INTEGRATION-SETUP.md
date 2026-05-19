@@ -3,13 +3,8 @@
 ## What this does
 - Submits the original waitlist form to a Vercel serverless route: `/api/waitlist-submit`
 - Upserts the contact into GCC (`/api/ai/contacts`)
-- Applies these GCC tags:
+- Applies this GCC tag:
   - Listing Amplified
-  - Founding Agent Program
-  - Early Access
-  - Waitlist
-  - Referral Interest
-  - Partnero Manual Referral Setup
 - Redirects the visitor to `thank-you.html`
 - If GCC sync fails, the route still returns success and logs the failed sync for retry through Control Board **when** `CONTROLBOARD_API_TOKEN` is configured
 
@@ -42,11 +37,6 @@ Tag group:
 
 Tags:
 - `Listing Amplified` → `6a0c9e38923e612330369dfa`
-- `Founding Agent Program` → `6a0c9e38923e612330369eae`
-- `Early Access` → `6a0c9e38923e612330369f62`
-- `Waitlist` → `6a0c9e38923e61233036a016`
-- `Referral Interest` → `6a0c9e38923e61233036a0ca`
-- `Partnero Manual Referral Setup` → `6a0c9e38923e61233036a17e`
 
 ## Current fallback behavior
 If `GLOBAL_CONTROL_API_KEY` is missing in Vercel:
@@ -61,4 +51,4 @@ If `CONTROLBOARD_API_TOKEN` is missing in Vercel:
 - failed sync attempts will only appear in function logs until the token is added
 
 ## Future developer note
-Referral links are still manual for now. Partnero referral links can later be automated through hosted Partnero signup, API, webhook, or email-based onboarding.
+Referral links are still manual for now. If a referral-program tag is needed later, it should be triggered separately after the signup flow is stable.

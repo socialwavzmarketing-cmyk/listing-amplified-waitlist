@@ -1,11 +1,6 @@
 const TAG_GROUP_ID = '6a0c9e30923e612330369d32';
 const REQUIRED_TAGS = {
-  'Listing Amplified': '6a0c9e38923e612330369dfa',
-  'Founding Agent Program': '6a0c9e38923e612330369eae',
-  'Early Access': '6a0c9e38923e612330369f62',
-  'Waitlist': '6a0c9e38923e61233036a016',
-  'Referral Interest': '6a0c9e38923e61233036a0ca',
-  'Partnero Manual Referral Setup': '6a0c9e38923e61233036a17e'
+  'Listing Amplified': '6a0c9e38923e612330369dfa'
 };
 
 const CONTROL_BOARD_BASE = 'https://control.clawlauncher.io/api';
