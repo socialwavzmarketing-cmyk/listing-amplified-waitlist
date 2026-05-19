@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listing Amplified - Privacy Policy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --plum: #6d28d9;
+            --plum-dark: #4c1d95;
+            --blue: #2563eb;
+            --ink: #140f1f;
+            --muted: #6f6481;
+            --line: #e8e3f2;
+            --card: rgba(255, 255, 255, 0.96);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top left, rgba(168, 85, 247, 0.25), transparent 28%),
+                radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.2), transparent 30%),
+                linear-gradient(135deg, #3b0764 0%, #4c1d95 38%, #1d4ed8 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .shell {
+            width: 100%;
+            max-width: 820px;
+            margin: 0 auto;
+            display: grid;
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 28px;
+            box-shadow: 0 24px 60px rgba(17, 12, 32, 0.22);
+            backdrop-filter: blur(12px);
+        }
+
+        .hero-card {
+            padding: 40px 44px;
+        }
+
+        .content-card {
+            padding: 34px 44px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(109, 40, 217, 0.1);
+            color: var(--plum-dark);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .logo-wrap {
+            margin-bottom: 14px;
+        }
+
+        .logo {
+            display: block;
+            width: min(100%, 300px);
+            height: auto;
+        }
+
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: -0.04em;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.06;
+            margin-bottom: 14px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.65;
+            max-width: 58ch;
+        }
+
+        .legal-stack {
+            display: grid;
+            gap: 28px;
+        }
+
+        .legal-section {
+            display: grid;
+            gap: 12px;
+        }
+
+        .legal-section h2 {
+            font-size: 1.18rem;
+            line-height: 1.25;
+        }
+
+        .legal-section p {
+            color: #2d223a;
+            font-size: 0.98rem;
+            line-height: 1.72;
+        }
+
+        .legal-section ul {
+            margin: 2px 0 0 20px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .legal-section li {
+            color: #2d223a;
+            font-size: 0.98rem;
+            line-height: 1.68;
+        }
+
+        .footer-card {
+            padding: 24px 28px;
+            text-align: center;
+        }
+
+        .footer-copy {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.65;
+            max-width: 54ch;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+
+        .footer-links a {
+            color: var(--plum-dark);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-copyright {
+            margin-top: 14px;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 920px) {
+            .hero-card { padding: 30px; }
+            .content-card { padding: 28px 30px; }
+        }
+
+        @media (max-width: 560px) {
+            .container { padding: 20px 14px; }
+            .card { border-radius: 22px; }
+            .hero-card, .content-card, .footer-card { padding: 22px; }
+            .logo { width: min(100%, 250px); }
+            h1 { font-size: 1.9rem; }
+            .subtitle, .legal-section p, .legal-section li, .footer-copy { font-size: 0.94rem; }
+            .legal-stack { gap: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="shell">
+            <section class="card hero-card">
+                <div class="eyebrow">Founding Agent Program</div>
+                <div class="logo-wrap">
+                    <img class="logo" id="hero-logo" src="../listing-amplified-logo.jpg" alt="Listing Amplified logo">
+                </div>
+                <h1>Privacy Policy</h1>
+                <p class="subtitle">Last Updated: May 2026</p>
+            </section>
+
+            <section class="card content-card">
+                <div class="legal-stack">
+                    <div class="legal-section">
+                        <p>Listing Amplified respects your privacy and is committed to protecting your information.</p>
+                        <p>This Privacy Policy explains how information is collected and used through the Listing Amplified platform, founding agent program, referral program, and early access signup pages.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>1. Information We Collect</h2>
+                        <p>We may collect:</p>
+                        <ul>
+                            <li>Name</li>
+                            <li>Email address</li>
+                            <li>Phone number</li>
+                            <li>Referral activity</li>
+                            <li>Basic usage or signup information</li>
+                        </ul>
+                        <p>Information is collected when you:</p>
+                        <ul>
+                            <li>Join the waitlist</li>
+                            <li>Participate in the referral program</li>
+                            <li>Submit forms</li>
+                            <li>Request updates or access</li>
+                        </ul>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>2. How We Use Information</h2>
+                        <p>We may use collected information to:</p>
+                        <ul>
+                            <li>Provide platform updates</li>
+                            <li>Manage referrals and rewards</li>
+                            <li>Communicate onboarding or launch information</li>
+                            <li>Improve platform functionality</li>
+                            <li>Respond to support requests</li>
+                            <li>Send occasional marketing or promotional communications</li>
+                        </ul>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>3. Referral Tracking</h2>
+                        <p>Listing Amplified may use referral links or tracking tools to:</p>
+                        <ul>
+                            <li>Attribute referrals</li>
+                            <li>Monitor referral activity</li>
+                            <li>Manage founding agent rewards</li>
+                        </ul>
+                        <p>Referral tracking data is used solely for platform operations and program management.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>4. Data Sharing</h2>
+                        <p>We do not sell your personal information.</p>
+                        <p>We may use trusted third-party tools or service providers for:</p>
+                        <ul>
+                            <li>email communication</li>
+                            <li>analytics</li>
+                            <li>referral tracking</li>
+                            <li>hosting and platform operations</li>
+                        </ul>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>5. Data Security</h2>
+                        <p>We take reasonable measures to protect submitted information, but no online platform can guarantee complete security.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>6. Your Choices</h2>
+                        <p>You may:</p>
+                        <ul>
+                            <li>Request removal from marketing communications</li>
+                            <li>Request deletion of submitted information where applicable</li>
+                        </ul>
+                        <p>To request changes or removal, contact:</p>
+                        <p>support@listingamplified.com</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>7. Updates to This Policy</h2>
+                        <p>This Privacy Policy may be updated periodically as the platform evolves.</p>
+                        <p>Continued use of Listing Amplified after updates constitutes acceptance of the revised policy.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>8. Contact</h2>
+                        <p>For privacy-related questions, contact:</p>
+                        <p>support@listingamplified.com</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card footer-card">
+                <p class="footer-copy">Listing Amplified is currently in early access/beta.</p>
+                <p class="footer-copy">Features, rewards, and launch offerings may evolve over time.</p>
+                <div class="footer-links">
+                    <a href="/terms">Terms of Service</a>
+                    <a href="/privacy">Privacy Policy</a>
+                </div>
+                <div class="footer-copyright">© 2026 Listing Amplified. All rights reserved.</div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        const heroLogo = document.getElementById('hero-logo');
+
+        function removeLogoBackground(image) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d', { willReadFrequently: true });
+            if (!context) return;
+
+            canvas.width = image.naturalWidth;
+            canvas.height = image.naturalHeight;
+            context.drawImage(image, 0, 0);
+
+            const frame = context.getImageData(0, 0, canvas.width, canvas.height);
+            const pixels = frame.data;
+
+            for (let i = 0; i < pixels.length; i += 4) {
+                const red = pixels[i];
+                const green = pixels[i + 1];
+                const blue = pixels[i + 2];
+                const brightness = (red + green + blue) / 3;
+                const minChannel = Math.min(red, green, blue);
+
+                if (brightness > 244 && minChannel > 236) {
+                    pixels[i + 3] = 0;
+                } else if (brightness > 228 && minChannel > 210) {
+                    pixels[i + 3] = Math.max(0, Math.round((240 - brightness) * 9));
+                }
+            }
+
+            context.putImageData(frame, 0, 0);
+            image.src = canvas.toDataURL('image/png');
+        }
+
+        if (heroLogo) {
+            if (heroLogo.complete) {
+                removeLogoBackground(heroLogo);
+            } else {
+                heroLogo.addEventListener('load', () => removeLogoBackground(heroLogo), { once: true });
+            }
+        }
+    </script>
+</body>
+</html>

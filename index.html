@@ -463,6 +463,38 @@
             font-size: 0.9rem;
         }
 
+        .site-footer {
+            margin-top: 22px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.92rem;
+            line-height: 1.65;
+        }
+
+        .site-footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .site-footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .site-footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .site-footer-copy {
+            margin-top: 12px;
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 0.88rem;
+        }
+
         @media (max-width: 920px) {
             .shell {
                 max-width: 680px;
@@ -742,7 +774,15 @@
                 </section>
             </div>
 
-            <div class="footer">© 2026 Listing Amplified</div>
+            <div class="site-footer">
+                <div>Listing Amplified is currently in early access/beta.</div>
+                <div>Features, rewards, and launch offerings may evolve over time.</div>
+                <div class="site-footer-links">
+                    <a href="/terms">Terms of Service</a>
+                    <a href="/privacy">Privacy Policy</a>
+                </div>
+                <div class="site-footer-copy">© 2026 Listing Amplified. All rights reserved.</div>
+            </div>
         </div>
     </div>
 

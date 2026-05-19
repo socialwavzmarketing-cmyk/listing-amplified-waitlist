@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listing Amplified - Terms of Service</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --plum: #6d28d9;
+            --plum-dark: #4c1d95;
+            --blue: #2563eb;
+            --ink: #140f1f;
+            --muted: #6f6481;
+            --line: #e8e3f2;
+            --card: rgba(255, 255, 255, 0.96);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top left, rgba(168, 85, 247, 0.25), transparent 28%),
+                radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.2), transparent 30%),
+                linear-gradient(135deg, #3b0764 0%, #4c1d95 38%, #1d4ed8 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .shell {
+            width: 100%;
+            max-width: 820px;
+            margin: 0 auto;
+            display: grid;
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 28px;
+            box-shadow: 0 24px 60px rgba(17, 12, 32, 0.22);
+            backdrop-filter: blur(12px);
+        }
+
+        .hero-card {
+            padding: 40px 44px;
+        }
+
+        .content-card {
+            padding: 34px 44px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(109, 40, 217, 0.1);
+            color: var(--plum-dark);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .logo-wrap {
+            margin-bottom: 14px;
+        }
+
+        .logo {
+            display: block;
+            width: min(100%, 300px);
+            height: auto;
+        }
+
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: -0.04em;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.06;
+            margin-bottom: 14px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.65;
+            max-width: 58ch;
+        }
+
+        .legal-stack {
+            display: grid;
+            gap: 28px;
+        }
+
+        .legal-section {
+            display: grid;
+            gap: 12px;
+        }
+
+        .legal-section h2 {
+            font-size: 1.18rem;
+            line-height: 1.25;
+        }
+
+        .legal-section p {
+            color: #2d223a;
+            font-size: 0.98rem;
+            line-height: 1.72;
+        }
+
+        .legal-section ul {
+            margin: 2px 0 0 20px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .legal-section li {
+            color: #2d223a;
+            font-size: 0.98rem;
+            line-height: 1.68;
+        }
+
+        .footer-card {
+            padding: 24px 28px;
+            text-align: center;
+        }
+
+        .footer-copy {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.65;
+            max-width: 54ch;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+
+        .footer-links a {
+            color: var(--plum-dark);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-copyright {
+            margin-top: 14px;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 920px) {
+            .hero-card { padding: 30px; }
+            .content-card { padding: 28px 30px; }
+        }
+
+        @media (max-width: 560px) {
+            .container { padding: 20px 14px; }
+            .card { border-radius: 22px; }
+            .hero-card, .content-card, .footer-card { padding: 22px; }
+            .logo { width: min(100%, 250px); }
+            h1 { font-size: 1.9rem; }
+            .subtitle, .legal-section p, .legal-section li, .footer-copy { font-size: 0.94rem; }
+            .legal-stack { gap: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="shell">
+            <section class="card hero-card">
+                <div class="eyebrow">Founding Agent Program</div>
+                <div class="logo-wrap">
+                    <img class="logo" id="hero-logo" src="../listing-amplified-logo.jpg" alt="Listing Amplified logo">
+                </div>
+                <h1>Terms of Service</h1>
+                <p class="subtitle">Last Updated: May 2026</p>
+            </section>
+
+            <section class="card content-card">
+                <div class="legal-stack">
+                    <div class="legal-section">
+                        <p>Welcome to Listing Amplified. By accessing or participating in the Listing Amplified platform, founding agent program, referral program, waitlist, or beta access experience, you agree to the following Terms of Service.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>1. Overview</h2>
+                        <p>Listing Amplified is a community-powered marketing platform designed to help real estate agents expand listing visibility through collaboration, social amplification, and ready-to-share marketing assets.</p>
+                        <p>Participation in the platform, referral program, waitlist, or beta access is voluntary and subject to these terms.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>2. Eligibility</h2>
+                        <p>You must:</p>
+                        <ul>
+                            <li>Be at least 18 years old</li>
+                            <li>Be legally permitted to use online services in your jurisdiction</li>
+                            <li>Provide accurate information during signup</li>
+                        </ul>
+                        <p>Certain features, rewards, or programs may be limited to licensed real estate professionals.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>3. Founding Agent &amp; Referral Program</h2>
+                        <p>Listing Amplified may offer:</p>
+                        <ul>
+                            <li>Early access opportunities</li>
+                            <li>Referral rewards</li>
+                            <li>Founder perks</li>
+                            <li>Promotional pricing</li>
+                            <li>Beta access features</li>
+                        </ul>
+                        <p>Rewards and program structures may change, pause, or end at any time without notice.</p>
+                        <p>Referral rewards:</p>
+                        <ul>
+                            <li>Have no cash value</li>
+                            <li>Are non-transferable</li>
+                            <li>May be revoked in cases of abuse, fraud, spam, or misuse</li>
+                        </ul>
+                        <p>Listing Amplified reserves the right to determine referral validity and reward eligibility at its sole discretion.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>4. Beta Access Disclaimer</h2>
+                        <p>Listing Amplified may currently operate in beta or early-access mode.</p>
+                        <p>Features, pricing, rewards, integrations, functionality, and availability may change over time.</p>
+                        <p>We do not guarantee:</p>
+                        <ul>
+                            <li>platform uptime</li>
+                            <li>feature availability</li>
+                            <li>future launch dates</li>
+                            <li>permanent access to beta features</li>
+                        </ul>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>5. Acceptable Use</h2>
+                        <p>You agree not to:</p>
+                        <ul>
+                            <li>Use the platform for spam or fraudulent activity</li>
+                            <li>Misrepresent your identity or professional credentials</li>
+                            <li>Attempt to manipulate referral tracking or rewards</li>
+                            <li>Upload or distribute unlawful, misleading, or harmful content</li>
+                            <li>Interfere with platform functionality or security</li>
+                        </ul>
+                        <p>Listing Amplified may suspend or remove access for violations of these terms.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>6. Intellectual Property</h2>
+                        <p>All Listing Amplified branding, graphics, content, software, and platform materials are owned by Listing Amplified unless otherwise stated.</p>
+                        <p>You may not copy, resell, or redistribute platform materials without permission.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>7. Limitation of Liability</h2>
+                        <p>Listing Amplified is provided “as is” without warranties of any kind.</p>
+                        <p>We are not liable for:</p>
+                        <ul>
+                            <li>business losses</li>
+                            <li>missed opportunities</li>
+                            <li>platform interruptions</li>
+                            <li>data loss</li>
+                            <li>referral tracking inaccuracies</li>
+                            <li>third-party platform failures</li>
+                        </ul>
+                        <p>Your use of the platform is at your own risk.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>8. Modifications</h2>
+                        <p>We may update these Terms of Service periodically. Continued participation after updates constitutes acceptance of the revised terms.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h2>9. Contact</h2>
+                        <p>For questions regarding these Terms, contact:</p>
+                        <p>support@listingamplified.com</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card footer-card">
+                <p class="footer-copy">Listing Amplified is currently in early access/beta.</p>
+                <p class="footer-copy">Features, rewards, and launch offerings may evolve over time.</p>
+                <div class="footer-links">
+                    <a href="/terms">Terms of Service</a>
+                    <a href="/privacy">Privacy Policy</a>
+                </div>
+                <div class="footer-copyright">© 2026 Listing Amplified. All rights reserved.</div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        const heroLogo = document.getElementById('hero-logo');
+
+        function removeLogoBackground(image) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d', { willReadFrequently: true });
+            if (!context) return;
+
+            canvas.width = image.naturalWidth;
+            canvas.height = image.naturalHeight;
+            context.drawImage(image, 0, 0);
+
+            const frame = context.getImageData(0, 0, canvas.width, canvas.height);
+            const pixels = frame.data;
+
+            for (let i = 0; i < pixels.length; i += 4) {
+                const red = pixels[i];
+                const green = pixels[i + 1];
+                const blue = pixels[i + 2];
+                const brightness = (red + green + blue) / 3;
+                const minChannel = Math.min(red, green, blue);
+
+                if (brightness > 244 && minChannel > 236) {
+                    pixels[i + 3] = 0;
+                } else if (brightness > 228 && minChannel > 210) {
+                    pixels[i + 3] = Math.max(0, Math.round((240 - brightness) * 9));
+                }
+            }
+
+            context.putImageData(frame, 0, 0);
+            image.src = canvas.toDataURL('image/png');
+        }
+
+        if (heroLogo) {
+            if (heroLogo.complete) {
+                removeLogoBackground(heroLogo);
+            } else {
+                heroLogo.addEventListener('load', () => removeLogoBackground(heroLogo), { once: true });
+            }
+        }
+    </script>
+</body>
+</html>
