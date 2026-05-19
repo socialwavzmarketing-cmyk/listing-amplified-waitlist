@@ -168,6 +168,13 @@ async function getContactById(gccApiKey, id) {
   return response?.data || null;
 }
 
+async function verifyTagPersistence(gccApiKey, contactId, requiredTagIds) {
+  const saved = await getContactById(gccApiKey, contactId);
+  const savedTags = Array.isArray(saved?.tags) ? saved.tags.map(String) : [];
+  const missing = requiredTagIds.filter((tagId) => !savedTags.includes(String(tagId)));
+  return { saved, missing };
+}
+
 async function createOrUpdateGccContact(gccApiKey, record) {
   const requiredTagIds = await ensureRequiredTags(gccApiKey);
   const existingContact = await findExistingContact(gccApiKey, record.email);
@@ -190,8 +197,9 @@ async function createOrUpdateGccContact(gccApiKey, record) {
   });
 
   if (!existingContact) {
+    let created;
     try {
-      const created = await fetchJson(`${GCC_BASE}/contacts`, {
+      created = await fetchJson(`${GCC_BASE}/contacts`, {
         method: 'POST',
         headers: {
           'X-API-KEY': gccApiKey,
@@ -199,10 +207,9 @@ async function createOrUpdateGccContact(gccApiKey, record) {
         },
         body: JSON.stringify(richPayload())
       });
-      return { action: 'created', contact: created?.data || null };
     } catch (error) {
       if (![400, 422].includes(error.status)) throw error;
-      const created = await fetchJson(`${GCC_BASE}/contacts`, {
+      created = await fetchJson(`${GCC_BASE}/contacts`, {
         method: 'POST',
         headers: {
           'X-API-KEY': gccApiKey,
@@ -210,13 +217,27 @@ async function createOrUpdateGccContact(gccApiKey, record) {
         },
         body: JSON.stringify(minimalPayload())
       });
-      return { action: 'created', contact: created?.data || null };
     }
+
+    const contact = created?.data || null;
+    if (contact?._id) {
+      const verification = await verifyTagPersistence(gccApiKey, contact._id, requiredTagIds);
+      if (verification.missing.length) {
+        const error = new Error(`GCC contact created, but required tags were not persisted. Missing tag IDs: ${verification.missing.join(', ')}`);
+        error.partial = true;
+        error.contact = verification.saved || contact;
+        throw error;
+      }
+      return { action: 'created', contact: verification.saved || contact };
+    }
+
+    return { action: 'created', contact };
   }
 
   const fullExisting = await getContactById(gccApiKey, existingContact._id);
+  let updated;
   try {
-    const updated = await fetchJson(`${GCC_BASE}/contacts/${existingContact._id}`, {
+    updated = await fetchJson(`${GCC_BASE}/contacts/${existingContact._id}`, {
       method: 'PUT',
       headers: {
         'X-API-KEY': gccApiKey,
@@ -224,10 +245,9 @@ async function createOrUpdateGccContact(gccApiKey, record) {
       },
       body: JSON.stringify(richPayload(fullExisting || existingContact))
     });
-    return { action: 'updated', contact: updated?.data || null };
   } catch (error) {
     if (![400, 422].includes(error.status)) throw error;
-    const updated = await fetchJson(`${GCC_BASE}/contacts/${existingContact._id}`, {
+    updated = await fetchJson(`${GCC_BASE}/contacts/${existingContact._id}`, {
       method: 'PUT',
       headers: {
         'X-API-KEY': gccApiKey,
@@ -235,8 +255,18 @@ async function createOrUpdateGccContact(gccApiKey, record) {
       },
       body: JSON.stringify(minimalPayload(fullExisting || existingContact))
     });
-    return { action: 'updated', contact: updated?.data || null };
   }
+
+  const contact = updated?.data || null;
+  const verification = await verifyTagPersistence(gccApiKey, existingContact._id, requiredTagIds);
+  if (verification.missing.length) {
+    const error = new Error(`GCC contact updated, but required tags were not persisted. Missing tag IDs: ${verification.missing.join(', ')}`);
+    error.partial = true;
+    error.contact = verification.saved || contact;
+    throw error;
+  }
+
+  return { action: 'updated', contact: verification.saved || contact };
 }
 
 async function listIdeas(controlBoardToken) {
