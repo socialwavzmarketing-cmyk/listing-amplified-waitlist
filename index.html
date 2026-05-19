@@ -449,6 +449,24 @@
             box-shadow: 0 10px 20px rgba(63, 49, 83, 0.1);
         }
 
+        .mintbird-cta {
+            margin-top: 18px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .mintbird-cta .mintbird-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 220px;
+            text-decoration: none;
+            border-radius: 16px;
+            padding: 15px 18px;
+            font: inherit;
+            font-weight: 700;
+        }
+
         .reassurance {
             margin-top: 18px;
             color: var(--muted);
@@ -616,6 +634,9 @@
                             <li><span class="check">✓</span><span>Referral access for founding members</span></li>
                         </ul>
                         <p class="founding-note">Founding members get in early, help shape the platform, and build momentum through more collaborative listing marketing from the start.</p>
+                        <div class="mintbird-cta">
+                            <a class="mintbird-btn" data-funnel="1288" data-step="3295" data-type="checkout">Buy Now</a>
+                        </div>
                     </section>
 
                     <section class="value-section">
@@ -791,6 +812,7 @@
         </div>
     </div>
 
+    <script src="https://api.poplinks.io/api/embed/button.js"></script>
     <script>
         const form = document.getElementById('waitlist-form');
         const step1 = document.getElementById('step-1');
