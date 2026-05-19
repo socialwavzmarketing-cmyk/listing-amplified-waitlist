@@ -456,31 +456,6 @@
             text-align: center;
         }
 
-        .partnero-card-wrap {
-            max-width: 760px;
-            margin: 0 auto;
-        }
-
-        .partnero-card {
-            background: #ffffff;
-            border: 1px solid rgba(109, 40, 217, 0.12);
-            border-radius: 24px;
-            padding: 26px;
-            box-shadow: 0 14px 32px rgba(17, 12, 32, 0.08);
-        }
-
-        .partnero-embed {
-            width: 100%;
-            min-height: 160px;
-        }
-
-        .partnero-embed > div,
-        .partnero-embed iframe,
-        .partnero-embed form {
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-
         .footer {
             margin-top: 22px;
             text-align: center;
@@ -588,17 +563,6 @@
             .reassurance { margin-top: 16px; }
         }
     </style>
-    <!-- PartneroJS -->
-    <script>
-     (function(p,t,n,e,r,o){ p['__partnerObject']=r;function f(){
-     var c={ a:arguments,q:[]};var r=this.push(c);return "number"!=typeof r?r:f.bind(c.q);}
-     f.q=f.q||[];p[r]=p[r]||f.bind(f.q);p[r].q=p[r].q||f.q;o=t.createElement(n);
-     var _=t.getElementsByTagName(n)[0];o.async=1;o.src=e+'?v'+(~~(new Date().getTime()/1e6));
-     _.parentNode.insertBefore(o,_);})(window, document, 'script', 'https://app.partnero.com/js/universal.js', 'po');
-     po('settings', 'assets_host', 'https://app.partnero.com');
-     po('program', 'C2WUJDUI', 'load');
-    </script>
-    <!-- End PartneroJS -->
 </head>
 <body>
     <div class="container">
@@ -716,20 +680,63 @@
                 <section class="form-card">
                     <div class="form-top">
                         <div>
-                            <div class="form-title">Join Early Access</div>
-                            <p class="form-copy">Free to join. Early access for licensed real estate agents.</p>
+                            <div class="form-title">Request Founding Agent Access</div>
+                            <p class="form-copy">Limited founding access in select beta markets.</p>
                             <p class="beta-note">Initial founding access focused on select California beta markets. Join the list to be notified when your area opens.</p>
+                        </div>
+                        <div class="steps" aria-label="Waitlist steps">
+                            <span class="step-dot active" id="dot-1">1</span>
+                            <span class="step-dot" id="dot-2">2</span>
                         </div>
                     </div>
 
-                    <!-- Future integration: connect Partnero signup/referral events to Mintbird or Global Control Center for tagging, contact creation, and notification workflows. -->
-                    <div class="partnero-card-wrap">
-                        <div class="partnero-card">
-                            <div class="partnero-embed">
-                                <div id="po-refer-a-friend-embeddable-signup-C2WUJDUI"></div>
+                    <form id="waitlist-form">
+                        <div class="step-panel active" id="step-1">
+                            <div class="grid">
+                                <div class="field">
+                                    <label for="firstName">First name</label>
+                                    <input id="firstName" name="firstName" type="text" autocomplete="given-name" required>
+                                </div>
+                                <div class="field">
+                                    <label for="lastName">Last name</label>
+                                    <input id="lastName" name="lastName" type="text" autocomplete="family-name" required>
+                                </div>
+                                <div class="field full">
+                                    <label for="email">Email</label>
+                                    <input id="email" name="email" type="email" autocomplete="email" required>
+                                </div>
+                                <div class="field full">
+                                    <label for="agentType">Agent type</label>
+                                    <select id="agentType" name="agentType" required>
+                                        <option value="" selected disabled>Select agent type</option>
+                                        <option value="Listing Agent">Listing Agent</option>
+                                        <option value="Buyer Agent">Buyer Agent</option>
+                                        <option value="Both">Both</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <button class="btn btn-primary" type="button" id="next-btn">Get Early Access</button>
                             </div>
                         </div>
-                    </div>
+
+                        <div class="step-panel" id="step-2">
+                            <div class="grid">
+                                <div class="field full">
+                                    <label for="brokerage">Brokerage <span style="color:#8a7d9d;font-weight:500;">optional</span></label>
+                                    <input id="brokerage" name="brokerage" type="text" autocomplete="organization">
+                                </div>
+                                <div class="field full">
+                                    <label for="serviceArea">City/County served <span style="color:#8a7d9d;font-weight:500;">optional</span></label>
+                                    <input id="serviceArea" name="serviceArea" type="text" autocomplete="address-level2">
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <button class="btn btn-secondary" type="button" id="back-btn">Back</button>
+                                <button class="btn btn-primary" type="submit">Request Founding Agent Access</button>
+                            </div>
+                        </div>
+                    </form>
 
                     <p class="reassurance">No spam. Early members receive priority access before public rollout.</p>
                 </section>
@@ -740,8 +747,15 @@
     </div>
 
     <script>
+        const form = document.getElementById('waitlist-form');
+        const step1 = document.getElementById('step-1');
+        const step2 = document.getElementById('step-2');
+        const dot1 = document.getElementById('dot-1');
+        const dot2 = document.getElementById('dot-2');
+        const nextBtn = document.getElementById('next-btn');
+        const backBtn = document.getElementById('back-btn');
         const heroLogo = document.getElementById('hero-logo');
-        const partneroContainer = document.getElementById('po-refer-a-friend-embeddable-signup-C2WUJDUI');
+        const stepOneFields = ['firstName', 'lastName', 'email', 'agentType'].map((id) => document.getElementById(id));
 
         function removeLogoBackground(image) {
             const canvas = document.createElement('canvas');
@@ -773,6 +787,14 @@
             image.src = canvas.toDataURL('image/png');
         }
 
+        function showStep(step) {
+            const onStepOne = step === 1;
+            step1.classList.toggle('active', onStepOne);
+            step2.classList.toggle('active', !onStepOne);
+            dot1.className = `step-dot ${onStepOne ? 'active' : 'done'}`;
+            dot2.className = `step-dot ${onStepOne ? '' : 'active'}`;
+        }
+
         if (heroLogo) {
             if (heroLogo.complete) {
                 removeLogoBackground(heroLogo);
@@ -781,23 +803,21 @@
             }
         }
 
-        function retryPartneroLoad(attempt = 0) {
-            if (!partneroContainer || partneroContainer.children.length > 0) return;
-            if (typeof window.po === 'function') {
-                window.po('settings', 'assets_host', 'https://app.partnero.com');
-                window.po('program', 'C2WUJDUI', 'load');
-            }
-            if (attempt < 5 && partneroContainer.children.length === 0) {
-                window.setTimeout(() => retryPartneroLoad(attempt + 1), 1500);
-            }
-        }
+        nextBtn.addEventListener('click', () => {
+            const valid = stepOneFields.every((field) => field.reportValidity());
+            if (!valid) return;
+            showStep(2);
+        });
 
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => retryPartneroLoad(), { once: true });
-        } else {
-            retryPartneroLoad();
-        }
+        backBtn.addEventListener('click', () => showStep(1));
 
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const submitButton = form.querySelector('button[type="submit"]');
+            submitButton.textContent = 'You\'re on the list';
+            submitButton.disabled = true;
+            submitButton.style.opacity = '0.9';
+        });
     </script>
 </body>
 </html>
