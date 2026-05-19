@@ -738,9 +738,13 @@
                                     <input id="email" name="email" type="email" autocomplete="email" required>
                                 </div>
                                 <div class="field full">
-                                    <label for="agentType">Agent type</label>
+                                    <label for="phone">Phone number <span style="color:#8a7d9d;font-weight:500;">optional</span></label>
+                                    <input id="phone" name="phone" type="tel" autocomplete="tel">
+                                </div>
+                                <div class="field full">
+                                    <label for="agentType">Role</label>
                                     <select id="agentType" name="agentType" required>
-                                        <option value="" selected disabled>Select agent type</option>
+                                        <option value="" selected disabled>Select your role</option>
                                         <option value="Listing Agent">Listing Agent</option>
                                         <option value="Buyer Agent">Buyer Agent</option>
                                         <option value="Both">Both</option>
@@ -771,6 +775,7 @@
                     </form>
 
                     <p class="reassurance">No spam. Early members receive priority access before public rollout.</p>
+                    <p class="reassurance" id="form-status" style="display:none;color:#fff1f2;">Something went wrong. Please try again.</p>
                 </section>
             </div>
 
@@ -851,12 +856,45 @@
 
         backBtn.addEventListener('click', () => showStep(1));
 
-        form.addEventListener('submit', (event) => {
+        const statusMessage = document.getElementById('form-status');
+
+        form.addEventListener('submit', async (event) => {
             event.preventDefault();
             const submitButton = form.querySelector('button[type="submit"]');
-            submitButton.textContent = 'You\'re on the list';
+            const payload = Object.fromEntries(new FormData(form).entries());
+            payload.signupSource = 'listing-amplified-waitlist';
+            payload.pagePath = window.location.pathname || '/';
+
+            submitButton.textContent = 'Saving your spot...';
             submitButton.disabled = true;
             submitButton.style.opacity = '0.9';
+            if (statusMessage) statusMessage.style.display = 'none';
+
+            try {
+                localStorage.setItem('listingAmplifiedWaitlist', JSON.stringify(payload));
+                const response = await fetch('/api/waitlist-submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json().catch(() => ({}));
+                if (!response.ok || result.ok === false) {
+                    throw new Error(result.error || 'Unable to save your waitlist request right now.');
+                }
+
+                window.location.href = 'thank-you.html';
+            } catch (error) {
+                submitButton.textContent = 'Request Founding Agent Access';
+                submitButton.disabled = false;
+                submitButton.style.opacity = '1';
+                if (statusMessage) {
+                    statusMessage.textContent = error.message || 'Unable to save your waitlist request right now.';
+                    statusMessage.style.display = 'block';
+                }
+            }
         });
     </script>
 </body>
