@@ -317,142 +317,67 @@
         }
 
         .form-card {
-            padding: 30px;
+            padding: 42px 36px 34px;
+            text-align: center;
         }
 
         .form-top {
-            display: flex;
-            justify-content: space-between;
-            gap: 16px;
-            align-items: center;
-            margin-bottom: 24px;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         .form-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.35rem;
-            font-weight: 700;
+            font-size: clamp(2rem, 4vw, 2.85rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            margin-bottom: 12px;
+            color: #1c1430;
         }
 
         .form-copy {
-            color: var(--muted);
-            font-size: 0.95rem;
-            margin-top: 6px;
+            color: #5f5374;
+            font-size: 1.08rem;
+            line-height: 1.75;
+            margin: 0 auto;
+            max-width: 58ch;
         }
 
-        .steps {
+        .cta-wrap {
+            margin-top: 38px;
             display: flex;
-            align-items: center;
-            gap: 10px;
+            justify-content: center;
         }
 
-        .step-dot {
-            width: 34px;
-            height: 34px;
-            border-radius: 999px;
-            border: 1px solid var(--line);
-            color: var(--muted);
-            background: white;
+        .mintbird-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            width: min(100%, 620px);
+            min-height: 64px;
+            padding: 18px 26px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.12rem;
             font-weight: 700;
-            font-size: 0.92rem;
+            letter-spacing: -0.01em;
+            color: #ffffff;
+            background: linear-gradient(90deg, var(--plum) 0%, var(--blue) 100%);
+            box-shadow: 0 18px 30px rgba(76, 29, 149, 0.22);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
         }
 
-        .step-dot.active,
-        .step-dot.done {
-            border-color: transparent;
-            color: white;
-            background: linear-gradient(135deg, var(--plum) 0%, var(--blue) 100%);
-        }
-
-        .step-panel { display: none; }
-        .step-panel.active { display: block; }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 16px;
-        }
-
-        .field {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .field.full { grid-column: 1 / -1; }
-
-        label {
-            font-size: 0.92rem;
-            font-weight: 600;
-            color: #2a2038;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 15px 16px;
-            border-radius: 16px;
-            border: 1.5px solid var(--line);
-            background: white;
-            font: inherit;
-            color: var(--ink);
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-        }
-
-        input:focus,
-        select:focus {
-            border-color: rgba(109, 40, 217, 0.55);
-            box-shadow: 0 0 0 4px rgba(109, 40, 217, 0.12);
-        }
-
-        .actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 8px;
-        }
-
-        .btn {
-            appearance: none;
-            border: none;
-            border-radius: 16px;
-            padding: 15px 18px;
-            font: inherit;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease, background 0.18s ease;
-        }
-
-        .btn:hover { transform: translateY(-1px); }
-
-        .btn-primary {
-            flex: 1;
-            color: white;
-            background: linear-gradient(135deg, var(--plum) 0%, var(--blue) 100%);
-            box-shadow: 0 16px 24px rgba(76, 29, 149, 0.22);
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 18px 28px rgba(76, 29, 149, 0.28);
-        }
-
-        .btn-secondary {
-            background: #f4f1fa;
-            color: #3f3153;
-        }
-
-        .btn-secondary:hover {
-            box-shadow: 0 10px 20px rgba(63, 49, 83, 0.1);
+        .mintbird-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 22px 36px rgba(76, 29, 149, 0.28);
         }
 
         .reassurance {
-            margin-top: 18px;
+            margin-top: 20px;
             color: var(--muted);
-            font-size: 0.86rem;
+            font-size: 0.95rem;
             text-align: center;
         }
 
@@ -711,71 +636,15 @@
 
                 <section class="form-card">
                     <div class="form-top">
-                        <div>
-                            <div class="form-title">Request Founding Agent Access</div>
-                            <p class="form-copy">Limited founding access in select beta markets.</p>
-                            <p class="beta-note">Initial founding access focused on select California beta markets. Join the list to be notified when your area opens.</p>
-                        </div>
-                        <div class="steps" aria-label="Waitlist steps">
-                            <span class="step-dot active" id="dot-1">1</span>
-                            <span class="step-dot" id="dot-2">2</span>
-                        </div>
+                        <div class="form-title">Request Founding Agent Access</div>
+                        <p class="form-copy">Initial founding access is focused on select California beta markets. Join the list to be first in line as new markets open.</p>
                     </div>
 
-                    <form id="waitlist-form">
-                        <div class="step-panel active" id="step-1">
-                            <div class="grid">
-                                <div class="field">
-                                    <label for="firstName">First name</label>
-                                    <input id="firstName" name="firstName" type="text" autocomplete="given-name" required>
-                                </div>
-                                <div class="field">
-                                    <label for="lastName">Last name</label>
-                                    <input id="lastName" name="lastName" type="text" autocomplete="family-name" required>
-                                </div>
-                                <div class="field full">
-                                    <label for="email">Email</label>
-                                    <input id="email" name="email" type="email" autocomplete="email" required>
-                                </div>
-                                <div class="field full">
-                                    <label for="phone">Phone number <span style="color:#8a7d9d;font-weight:500;">optional</span></label>
-                                    <input id="phone" name="phone" type="tel" autocomplete="tel">
-                                </div>
-                            </div>
-                            <div class="actions">
-                                <button class="btn btn-primary" type="button" id="next-btn">Get Early Access</button>
-                            </div>
-                        </div>
-
-                        <div class="step-panel" id="step-2">
-                            <div class="grid">
-                                <div class="field full">
-                                    <label for="agentType">Role</label>
-                                    <select id="agentType" name="agentType" required>
-                                        <option value="" selected disabled>Select your role</option>
-                                        <option value="Listing Agent">Listing Agent</option>
-                                        <option value="Buyer Agent">Buyer Agent</option>
-                                        <option value="Both">Both</option>
-                                    </select>
-                                </div>
-                                <div class="field full">
-                                    <label for="brokerage">Brokerage <span style="color:#8a7d9d;font-weight:500;">optional</span></label>
-                                    <input id="brokerage" name="brokerage" type="text" autocomplete="organization">
-                                </div>
-                                <div class="field full">
-                                    <label for="serviceArea">City/County served <span style="color:#8a7d9d;font-weight:500;">optional</span></label>
-                                    <input id="serviceArea" name="serviceArea" type="text" autocomplete="address-level2">
-                                </div>
-                            </div>
-                            <div class="actions">
-                                <button class="btn btn-secondary" type="button" id="back-btn">Back</button>
-                                <button class="btn btn-primary" type="submit">Request Founding Agent Access</button>
-                            </div>
-                        </div>
-                    </form>
+                    <div class="cta-wrap">
+                        <a class="mintbird-btn" data-funnel="1288" data-step="3295" data-type="checkout">Request Founding Agent Access</a>
+                    </div>
 
                     <p class="reassurance">No spam. Early members receive priority access before public rollout.</p>
-                    <p class="reassurance" id="form-status" style="display:none;color:#fff1f2;">Something went wrong. Please try again.</p>
                 </section>
             </div>
 
@@ -791,16 +660,9 @@
         </div>
     </div>
 
+    <script src="https://api.poplinks.io/api/embed/button.js"></script>
     <script>
-        const form = document.getElementById('waitlist-form');
-        const step1 = document.getElementById('step-1');
-        const step2 = document.getElementById('step-2');
-        const dot1 = document.getElementById('dot-1');
-        const dot2 = document.getElementById('dot-2');
-        const nextBtn = document.getElementById('next-btn');
-        const backBtn = document.getElementById('back-btn');
         const heroLogo = document.getElementById('hero-logo');
-        const stepOneFields = ['firstName', 'lastName', 'email'].map((id) => document.getElementById(id));
 
         function removeLogoBackground(image) {
             const canvas = document.createElement('canvas');
@@ -832,14 +694,6 @@
             image.src = canvas.toDataURL('image/png');
         }
 
-        function showStep(step) {
-            const onStepOne = step === 1;
-            step1.classList.toggle('active', onStepOne);
-            step2.classList.toggle('active', !onStepOne);
-            dot1.className = `step-dot ${onStepOne ? 'active' : 'done'}`;
-            dot2.className = `step-dot ${onStepOne ? '' : 'active'}`;
-        }
-
         if (heroLogo) {
             if (heroLogo.complete) {
                 removeLogoBackground(heroLogo);
@@ -847,55 +701,6 @@
                 heroLogo.addEventListener('load', () => removeLogoBackground(heroLogo), { once: true });
             }
         }
-
-        nextBtn.addEventListener('click', () => {
-            const valid = stepOneFields.every((field) => field.reportValidity());
-            if (!valid) return;
-            showStep(2);
-        });
-
-        backBtn.addEventListener('click', () => showStep(1));
-
-        const statusMessage = document.getElementById('form-status');
-
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const submitButton = form.querySelector('button[type="submit"]');
-            const payload = Object.fromEntries(new FormData(form).entries());
-            payload.signupSource = 'listing-amplified-waitlist';
-            payload.pagePath = window.location.pathname || '/';
-
-            submitButton.textContent = 'Saving your spot...';
-            submitButton.disabled = true;
-            submitButton.style.opacity = '0.9';
-            if (statusMessage) statusMessage.style.display = 'none';
-
-            try {
-                localStorage.setItem('listingAmplifiedWaitlist', JSON.stringify(payload));
-                const response = await fetch('/api/waitlist-submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                const result = await response.json().catch(() => ({}));
-                if (!response.ok || result.ok === false) {
-                    throw new Error(result.error || 'Unable to save your waitlist request right now.');
-                }
-
-                window.location.href = 'thank-you.html';
-            } catch (error) {
-                submitButton.textContent = 'Request Founding Agent Access';
-                submitButton.disabled = false;
-                submitButton.style.opacity = '1';
-                if (statusMessage) {
-                    statusMessage.textContent = error.message || 'Unable to save your waitlist request right now.';
-                    statusMessage.style.display = 'block';
-                }
-            }
-        });
     </script>
 </body>
 </html>
