@@ -164,37 +164,6 @@ function mergeCustomFields(existing = [], incoming = []) {
   return Array.from(map.values());
 }
 
-async function ensureRequiredTags(gccApiKey) {
-  const tagIds = { ...REQUIRED_TAGS };
-  const existing = await fetchJson(`${GCC_BASE}/tags?limit=2000`, {
-    headers: { 'X-API-KEY': gccApiKey }
-  });
-  const tags = Array.isArray(existing?.data) ? existing.data : [];
-
-  for (const [name, currentId] of Object.entries(tagIds)) {
-    const matched = tags.find((tag) => String(tag.name || '').toLowerCase() === name.toLowerCase());
-    if (matched?._id) {
-      tagIds[name] = matched._id;
-      continue;
-    }
-
-    const created = await fetchJson(`${GCC_BASE}/tags`, {
-      method: 'POST',
-      headers: {
-        'X-API-KEY': gccApiKey,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name, groupId: TAG_GROUP_ID })
-    });
-
-    const createdTag = created?.data;
-    if (!createdTag?._id) throw new Error(`Failed to create GCC tag: ${name}`);
-    tagIds[name] = createdTag._id;
-  }
-
-  return Object.values(tagIds);
-}
-
 async function findExistingContact(gccApiKey, email) {
   const response = await fetchJson(`${GCC_BASE}/contacts?search=${encodeURIComponent(email)}`, {
     headers: { 'X-API-KEY': gccApiKey }
@@ -210,105 +179,62 @@ async function getContactById(gccApiKey, id) {
   return response?.data || null;
 }
 
-async function verifyTagPersistence(gccApiKey, contactId, requiredTagIds) {
-  const saved = await getContactById(gccApiKey, contactId);
-  const savedTags = Array.isArray(saved?.tags) ? saved.tags.map(String) : [];
-  const missing = requiredTagIds.filter((tagId) => !savedTags.includes(String(tagId)));
-  return { saved, missing };
-}
-
-async function createOrUpdateGccContact(gccApiKey, record) {
-  const requiredTagIds = await ensureRequiredTags(gccApiKey);
-  const existingContact = await findExistingContact(gccApiKey, record.email);
-
-  const minimalPayload = (base = {}) => ({
+function buildCorePayload(record, base = {}) {
+  return {
     firstName: record.firstName || base.firstName || '',
     lastName: record.lastName || base.lastName || '',
     name: record.fullName || base.name || '',
     email: record.email,
     phone: record.phone || base.phone || '',
-    address: record.address?.formatted || record.serviceArea || base.address || '',
-    tags: uniqueStrings([...(base.tags || []), ...requiredTagIds])
-  });
+    address: record.address?.formatted || record.serviceArea || base.address || ''
+  };
+}
 
-  const richPayload = (base = {}) => ({
-    ...base,
-    ...minimalPayload(base),
-    meta: buildMeta(record, base.meta),
-    customFields: mergeCustomFields(base.customFields, buildCustomFields(record))
-  });
+function corePayloadChanged(payload, existing = {}) {
+  return [
+    'firstName',
+    'lastName',
+    'name',
+    'email',
+    'phone',
+    'address'
+  ].some((key) => String(payload[key] || '') !== String(existing[key] || ''));
+}
+
+async function createOrUpdateGccContact(gccApiKey, record) {
+  const existingContact = await findExistingContact(gccApiKey, record.email);
 
   if (!existingContact) {
-    let created;
-    try {
-      created = await fetchJson(`${GCC_BASE}/contacts`, {
-        method: 'POST',
-        headers: {
-          'X-API-KEY': gccApiKey,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(richPayload())
-      });
-    } catch (error) {
-      if (![400, 422].includes(error.status)) throw error;
-      created = await fetchJson(`${GCC_BASE}/contacts`, {
-        method: 'POST',
-        headers: {
-          'X-API-KEY': gccApiKey,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(minimalPayload())
-      });
-    }
+    const created = await fetchJson(`${GCC_BASE}/contacts`, {
+      method: 'POST',
+      headers: {
+        'X-API-KEY': gccApiKey,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(buildCorePayload(record))
+    });
 
-    const contact = created?.data || null;
-    if (contact?._id) {
-      const verification = await verifyTagPersistence(gccApiKey, contact._id, requiredTagIds);
-      if (verification.missing.length) {
-        const error = new Error(`GCC contact created, but required tags were not persisted. Missing tag IDs: ${verification.missing.join(', ')}`);
-        error.partial = true;
-        error.contact = verification.saved || contact;
-        throw error;
-      }
-      return { action: 'created', contact: verification.saved || contact };
-    }
-
-    return { action: 'created', contact };
+    return { action: 'created', contact: created?.data || null };
   }
 
   const fullExisting = await getContactById(gccApiKey, existingContact._id);
-  let updated;
-  try {
-    updated = await fetchJson(`${GCC_BASE}/contacts/${existingContact._id}`, {
-      method: 'PUT',
-      headers: {
-        'X-API-KEY': gccApiKey,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(richPayload(fullExisting || existingContact))
-    });
-  } catch (error) {
-    if (![400, 422].includes(error.status)) throw error;
-    updated = await fetchJson(`${GCC_BASE}/contacts/${existingContact._id}`, {
-      method: 'PUT',
-      headers: {
-        'X-API-KEY': gccApiKey,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(minimalPayload(fullExisting || existingContact))
-    });
+  const payload = buildCorePayload(record, fullExisting || existingContact);
+  const current = fullExisting || existingContact;
+
+  if (!corePayloadChanged(payload, current)) {
+    return { action: 'unchanged', contact: current };
   }
 
-  const contact = updated?.data || null;
-  const verification = await verifyTagPersistence(gccApiKey, existingContact._id, requiredTagIds);
-  if (verification.missing.length) {
-    const error = new Error(`GCC contact updated, but required tags were not persisted. Missing tag IDs: ${verification.missing.join(', ')}`);
-    error.partial = true;
-    error.contact = verification.saved || contact;
-    throw error;
-  }
+  const updated = await fetchJson(`${GCC_BASE}/contacts/${existingContact._id}`, {
+    method: 'PUT',
+    headers: {
+      'X-API-KEY': gccApiKey,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
 
-  return { action: 'updated', contact: verification.saved || contact };
+  return { action: 'updated', contact: updated?.data || current };
 }
 
 async function listIdeas(controlBoardToken) {
