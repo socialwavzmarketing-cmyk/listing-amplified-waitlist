@@ -719,7 +719,7 @@
                         </div>
 
                         <div class="form-actions">
-                            <a class="btn btn-primary mintbird-btn" data-funnel="1291" data-step="3339" data-type="checkout">Request Founding Agent Access</a>
+                            <button class="btn btn-primary" type="submit">Request Founding Agent Access</button>
                         </div>
                     </form>
 
@@ -740,9 +740,10 @@
         </div>
     </div>
 
-    <script src="https://api.poplinks.io/api/embed/button.js"></script>
     <script>
         const heroLogo = document.getElementById('hero-logo');
+        const form = document.getElementById('waitlist-form');
+        const statusMessage = document.getElementById('form-status');
 
         function removeLogoBackground(image) {
             const canvas = document.createElement('canvas');
@@ -780,6 +781,47 @@
             } else {
                 heroLogo.addEventListener('load', () => removeLogoBackground(heroLogo), { once: true });
             }
+        }
+
+        if (form) {
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const submitButton = form.querySelector('button[type="submit"]');
+                const payload = Object.fromEntries(new FormData(form).entries());
+                payload.signupSource = 'listing-amplified-waitlist-form';
+                payload.pagePath = window.location.pathname || '/';
+
+                submitButton.textContent = 'Saving your spot...';
+                submitButton.disabled = true;
+                submitButton.style.opacity = '0.9';
+                if (statusMessage) statusMessage.style.display = 'none';
+
+                try {
+                    localStorage.setItem('listingAmplifiedWaitlist', JSON.stringify(payload));
+                    const response = await fetch('/api/waitlist-submit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json().catch(() => ({}));
+                    if (!response.ok || result.ok === false) {
+                        throw new Error(result.error || 'Unable to save your waitlist request right now.');
+                    }
+
+                    window.location.href = 'thank-you.html';
+                } catch (error) {
+                    submitButton.textContent = 'Request Founding Agent Access';
+                    submitButton.disabled = false;
+                    submitButton.style.opacity = '1';
+                    if (statusMessage) {
+                        statusMessage.textContent = error.message || 'Unable to save your waitlist request right now.';
+                        statusMessage.style.display = 'block';
+                    }
+                }
+            });
         }
 
     </script>
