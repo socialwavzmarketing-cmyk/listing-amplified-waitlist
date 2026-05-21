@@ -381,6 +381,12 @@
             box-shadow: 0 0 0 4px rgba(109, 40, 217, 0.12);
         }
 
+        .field-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
         .form-actions {
             margin-top: 6px;
             display: grid;
@@ -410,42 +416,6 @@
         }
 
         .btn-primary:hover {
-            box-shadow: 0 22px 36px rgba(76, 29, 149, 0.28);
-        }
-
-        .alt-cta-note {
-            color: #74688a;
-            font-size: 0.9rem;
-            text-align: center;
-        }
-
-        .cta-wrap {
-            margin-top: 6px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .mintbird-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: min(100%, 620px);
-            min-height: 64px;
-            padding: 18px 26px;
-            border-radius: 999px;
-            text-decoration: none;
-            font-family: 'Inter', sans-serif;
-            font-size: 1.12rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-            color: #ffffff;
-            background: linear-gradient(90deg, var(--plum) 0%, var(--blue) 100%);
-            box-shadow: 0 18px 30px rgba(76, 29, 149, 0.22);
-            transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
-        }
-
-        .mintbird-btn:hover {
-            transform: translateY(-1px);
             box-shadow: 0 22px 36px rgba(76, 29, 149, 0.28);
         }
 
@@ -538,6 +508,9 @@
             .grid { grid-template-columns: 1fr; gap: 0; }
             .btn {
                 min-height: 52px;
+            }
+            .field-row {
+                grid-template-columns: 1fr;
             }
             .form-top {
                 flex-direction: column;
@@ -724,25 +697,51 @@
                     </div>
 
                     <form class="waitlist-form" id="waitlist-form">
-                        <div class="field">
-                            <label for="fullName">Name</label>
-                            <input id="fullName" name="fullName" type="text" autocomplete="name" required>
+                        <div class="field-row">
+                            <div class="field">
+                                <label for="firstName">First Name</label>
+                                <input id="firstName" name="firstName" type="text" autocomplete="given-name" required>
+                            </div>
+                            <div class="field">
+                                <label for="lastName">Last Name</label>
+                                <input id="lastName" name="lastName" type="text" autocomplete="family-name" required>
+                            </div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field">
+                                <label for="email">Email</label>
+                                <input id="email" name="email" type="email" autocomplete="email" required>
+                            </div>
+                            <div class="field">
+                                <label for="phone">Phone</label>
+                                <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+                            </div>
                         </div>
                         <div class="field">
-                            <label for="email">Email</label>
-                            <input id="email" name="email" type="email" autocomplete="email" required>
+                            <label for="address1">Street Address <span style="font-weight:400;color:#74688a;">(optional)</span></label>
+                            <input id="address1" name="address1" type="text" autocomplete="address-line1">
                         </div>
                         <div class="field">
-                            <label for="phone">Phone</label>
-                            <input id="phone" name="phone" type="tel" autocomplete="tel">
+                            <label for="address2">Address Line 2 <span style="font-weight:400;color:#74688a;">(optional)</span></label>
+                            <input id="address2" name="address2" type="text" autocomplete="address-line2">
+                        </div>
+                        <div class="field-row">
+                            <div class="field">
+                                <label for="city">City <span style="font-weight:400;color:#74688a;">(optional)</span></label>
+                                <input id="city" name="city" type="text" autocomplete="address-level2">
+                            </div>
+                            <div class="field">
+                                <label for="state">State <span style="font-weight:400;color:#74688a;">(optional)</span></label>
+                                <input id="state" name="state" type="text" autocomplete="address-level1">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="zip">ZIP Code <span style="font-weight:400;color:#74688a;">(optional)</span></label>
+                            <input id="zip" name="zip" type="text" autocomplete="postal-code">
                         </div>
 
                         <div class="form-actions">
                             <button class="btn btn-primary" type="submit">Request Founding Agent Access</button>
-                            <div class="alt-cta-note">Mintbird button left in place below for later testing.</div>
-                            <div class="cta-wrap">
-                                <a class="mintbird-btn" data-funnel="1288" data-step="3295" data-type="checkout">Request Founding Agent Access</a>
-                            </div>
                         </div>
                     </form>
 
@@ -763,7 +762,6 @@
         </div>
     </div>
 
-    <script src="https://api.poplinks.io/api/embed/button.js"></script>
     <script>
         const heroLogo = document.getElementById('hero-logo');
         const form = document.getElementById('waitlist-form');
@@ -835,7 +833,10 @@
                         throw new Error(result.error || 'Unable to save your waitlist request right now.');
                     }
 
-                    window.location.href = 'thank-you.html';
+                    form.reset();
+                    submitButton.textContent = 'Request Founding Agent Access';
+                    submitButton.disabled = false;
+                    submitButton.style.opacity = '1';
                 } catch (error) {
                     submitButton.textContent = 'Request Founding Agent Access';
                     submitButton.disabled = false;

@@ -40,6 +40,24 @@ function uniqueStrings(values = []) {
   return [...new Set(values.map((value) => String(value || '').trim()).filter(Boolean))];
 }
 
+function buildAddress(payload) {
+  const address1 = String(payload.address1 || '').trim();
+  const address2 = String(payload.address2 || '').trim();
+  const city = String(payload.city || '').trim();
+  const state = String(payload.state || '').trim();
+  const zip = String(payload.zip || payload.postalCode || '').trim();
+  const formatted = [address1, address2, [city, state].filter(Boolean).join(', '), zip].filter(Boolean).join(', ');
+
+  return {
+    address1,
+    address2,
+    city,
+    state,
+    zip,
+    formatted
+  };
+}
+
 function buildSubmissionRecord(payload) {
   const email = normalizeEmail(payload.email);
   const names = splitName(payload.firstName, payload.lastName, payload.fullName);
@@ -47,6 +65,7 @@ function buildSubmissionRecord(payload) {
   const role = String(payload.agentType || payload.role || '').trim();
   const brokerage = String(payload.brokerage || '').trim();
   const phone = String(payload.phone || '').trim();
+  const address = buildAddress(payload);
   const signupSource = String(payload.signupSource || '').trim() || 'listing-amplified-waitlist';
   const pagePath = String(payload.pagePath || '').trim() || '/';
 
@@ -59,6 +78,7 @@ function buildSubmissionRecord(payload) {
     role,
     brokerage,
     serviceArea,
+    address,
     signupSource,
     pagePath,
     submittedAt: new Date().toISOString()
@@ -66,8 +86,10 @@ function buildSubmissionRecord(payload) {
 }
 
 function validateSubmission(record) {
-  if (!record.fullName) return 'Name is required.';
+  if (!record.firstName) return 'First name is required.';
+  if (!record.lastName) return 'Last name is required.';
   if (!record.email) return 'Email is required.';
+  if (!record.phone) return 'Phone is required.';
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(record.email);
   if (!emailOk) return 'Please enter a valid email address.';
   return null;
@@ -111,6 +133,8 @@ function buildMeta(record, existingMeta = []) {
     record.role ? `role:${record.role}` : '',
     record.brokerage ? `brokerage:${record.brokerage}` : '',
     record.serviceArea ? `service-area:${record.serviceArea}` : '',
+    record.address?.city ? `city:${record.address.city}` : '',
+    record.address?.state ? `state:${record.address.state}` : '',
     record.signupSource ? `signup-source:${record.signupSource}` : '',
     record.pagePath ? `page:${record.pagePath}` : ''
   ];
@@ -122,6 +146,11 @@ function buildCustomFields(record) {
   if (record.signupSource) fields.push({ name: 'source', value: record.signupSource });
   if (record.role) fields.push({ name: 'role', value: record.role });
   if (record.serviceArea) fields.push({ name: 'service-area', value: record.serviceArea });
+  if (record.address?.address1) fields.push({ name: 'address1', value: record.address.address1 });
+  if (record.address?.address2) fields.push({ name: 'address2', value: record.address.address2 });
+  if (record.address?.city) fields.push({ name: 'city', value: record.address.city });
+  if (record.address?.state) fields.push({ name: 'state', value: record.address.state });
+  if (record.address?.zip) fields.push({ name: 'zip', value: record.address.zip });
   return fields;
 }
 
@@ -199,7 +228,7 @@ async function createOrUpdateGccContact(gccApiKey, record) {
     name: record.fullName || base.name || '',
     email: record.email,
     phone: record.phone || base.phone || '',
-    address: record.serviceArea || base.address || '',
+    address: record.address?.formatted || record.serviceArea || base.address || '',
     tags: uniqueStrings([...(base.tags || []), ...requiredTagIds])
   });
 
@@ -301,6 +330,7 @@ function buildHistoryLine(record, syncStatus, syncMessage = '') {
     `role: ${record.role || '[blank]'}`,
     `brokerage: ${record.brokerage || '[blank]'}`,
     `service area: ${record.serviceArea || '[blank]'}`,
+    `address: ${record.address?.formatted || '[blank]'}`,
     `source: ${record.signupSource}`,
     `page: ${record.pagePath}`,
     syncMessage ? `note: ${syncMessage}` : ''
@@ -446,7 +476,7 @@ module.exports = async (req, res) => {
       syncStatus: 'failed_logged',
       localRecordSaved: Boolean(localRecordResult?.ok),
       retryLogged: Boolean(controlBoardToken),
-      warning: 'CRM sync failed, but the signup flow can continue and the submission was logged for retry if Control Board logging is configured.'
+      warning: 'CRM sync failed, but the signup was logged for retry if Control Board logging is configured.'
     });
   }
 };
