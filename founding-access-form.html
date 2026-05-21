@@ -713,35 +713,13 @@
                                 <input id="email" name="email" type="email" autocomplete="email" required>
                             </div>
                             <div class="field">
-                                <label for="phone">Phone</label>
-                                <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+                                <label for="phone">Phone <span style="font-weight:400;color:#74688a;">(optional)</span></label>
+                                <input id="phone" name="phone" type="tel" autocomplete="tel">
                             </div>
-                        </div>
-                        <div class="field">
-                            <label for="address1">Street Address <span style="font-weight:400;color:#74688a;">(optional)</span></label>
-                            <input id="address1" name="address1" type="text" autocomplete="address-line1">
-                        </div>
-                        <div class="field">
-                            <label for="address2">Address Line 2 <span style="font-weight:400;color:#74688a;">(optional)</span></label>
-                            <input id="address2" name="address2" type="text" autocomplete="address-line2">
-                        </div>
-                        <div class="field-row">
-                            <div class="field">
-                                <label for="city">City <span style="font-weight:400;color:#74688a;">(optional)</span></label>
-                                <input id="city" name="city" type="text" autocomplete="address-level2">
-                            </div>
-                            <div class="field">
-                                <label for="state">State <span style="font-weight:400;color:#74688a;">(optional)</span></label>
-                                <input id="state" name="state" type="text" autocomplete="address-level1">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label for="zip">ZIP Code <span style="font-weight:400;color:#74688a;">(optional)</span></label>
-                            <input id="zip" name="zip" type="text" autocomplete="postal-code">
                         </div>
 
                         <div class="form-actions">
-                            <a class="btn btn-primary mintbird-btn" data-funnel="1288" data-step="3336" data-type="checkout">Buy Now</a>
+                            <button class="btn btn-primary" type="submit">Request Founding Agent Access</button>
                         </div>
                     </form>
 
@@ -762,9 +740,10 @@
         </div>
     </div>
 
-    <script src="https://api.poplinks.io/api/embed/button.js"></script>
     <script>
         const heroLogo = document.getElementById('hero-logo');
+        const form = document.getElementById('waitlist-form');
+        const statusMessage = document.getElementById('form-status');
 
         function removeLogoBackground(image) {
             const canvas = document.createElement('canvas');
@@ -802,6 +781,47 @@
             } else {
                 heroLogo.addEventListener('load', () => removeLogoBackground(heroLogo), { once: true });
             }
+        }
+
+        if (form) {
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const submitButton = form.querySelector('button[type="submit"]');
+                const payload = Object.fromEntries(new FormData(form).entries());
+                payload.signupSource = 'listing-amplified-waitlist-form';
+                payload.pagePath = window.location.pathname || '/';
+
+                submitButton.textContent = 'Saving your spot...';
+                submitButton.disabled = true;
+                submitButton.style.opacity = '0.9';
+                if (statusMessage) statusMessage.style.display = 'none';
+
+                try {
+                    localStorage.setItem('listingAmplifiedWaitlist', JSON.stringify(payload));
+                    const response = await fetch('/api/waitlist-submit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json().catch(() => ({}));
+                    if (!response.ok || result.ok === false) {
+                        throw new Error(result.error || 'Unable to save your waitlist request right now.');
+                    }
+
+                    window.location.href = 'thank-you.html';
+                } catch (error) {
+                    submitButton.textContent = 'Request Founding Agent Access';
+                    submitButton.disabled = false;
+                    submitButton.style.opacity = '1';
+                    if (statusMessage) {
+                        statusMessage.textContent = error.message || 'Unable to save your waitlist request right now.';
+                        statusMessage.style.display = 'block';
+                    }
+                }
+            });
         }
 
     </script>

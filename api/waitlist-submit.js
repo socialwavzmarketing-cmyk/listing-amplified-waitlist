@@ -89,7 +89,6 @@ function validateSubmission(record) {
   if (!record.firstName) return 'First name is required.';
   if (!record.lastName) return 'Last name is required.';
   if (!record.email) return 'Email is required.';
-  if (!record.phone) return 'Phone is required.';
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(record.email);
   if (!emailOk) return 'Please enter a valid email address.';
   return null;
