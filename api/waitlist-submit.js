@@ -3,11 +3,7 @@ const REQUIRED_TAGS = {
   'Listing Amplified': '6a0c9e38923e612330369dfa'
 };
 
-const CONTROL_BOARD_BASE = 'https://control.clawlauncher.io/api';
 const GCC_BASE = 'https://api.globalcontrol.io/api/ai';
-const WAITLIST_CATEGORY = 'Listing Amplified Waitlist';
-const WAITLIST_RECORD_TAG = 'listing-amplified-waitlist';
-const WAITLIST_FAILURE_TAG = 'waitlist-sync-failed';
 
 function sendJson(res, statusCode, payload) {
   res.statusCode = statusCode;
@@ -252,91 +248,6 @@ async function createOrUpdateGccContact(gccApiKey, record) {
   return { action, contact: saved || contact };
 }
 
-async function listIdeas(controlBoardToken) {
-  const response = await fetchJson(`${CONTROL_BOARD_BASE}/ideas`, {
-    headers: { Authorization: `Bearer ${controlBoardToken}` }
-  });
-  return response?.ideas || [];
-}
-
-function buildHistoryLine(record, syncStatus, syncMessage = '') {
-  const stamp = new Date().toISOString();
-  return [
-    `- ${stamp}`,
-    `status: ${syncStatus}`,
-    `name: ${record.fullName}`,
-    `email: ${record.email}`,
-    `phone: ${record.phone || '[blank]'}`,
-    `role: ${record.role || '[blank]'}`,
-    `brokerage: ${record.brokerage || '[blank]'}`,
-    `service area: ${record.serviceArea || '[blank]'}`,
-    `address: ${record.address?.formatted || '[blank]'}`,
-    `source: ${record.signupSource}`,
-    `page: ${record.pagePath}`,
-    syncMessage ? `note: ${syncMessage}` : ''
-  ].filter(Boolean).join('\n');
-}
-
-async function upsertSubmissionRecord(controlBoardToken, record, syncStatus, syncMessage = '') {
-  if (!controlBoardToken) {
-    return { ok: false, skipped: true, reason: 'Missing CONTROLBOARD_API_TOKEN' };
-  }
-
-  const title = `Listing Amplified Waitlist - ${record.email}`;
-  const ideas = await listIdeas(controlBoardToken);
-  const existing = ideas.find((idea) => String(idea.title || '').toLowerCase() === title.toLowerCase());
-  const line = buildHistoryLine(record, syncStatus, syncMessage);
-
-  if (!existing) {
-    const created = await fetchJson(`${CONTROL_BOARD_BASE}/ideas`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${controlBoardToken}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        title,
-        description: line,
-        category: WAITLIST_CATEGORY,
-        status: 'active',
-        priority: syncStatus === 'sync_failed' ? 'high' : 'medium',
-        tags: uniqueStrings([
-          WAITLIST_RECORD_TAG,
-          record.signupSource,
-          syncStatus === 'sync_failed' ? WAITLIST_FAILURE_TAG : 'waitlist-synced'
-        ])
-      })
-    });
-    return { ok: true, created: true, id: created?.id || null };
-  }
-
-  const existingDescription = String(existing.description || '').trim();
-  const existingTags = Array.isArray(existing.tags) ? existing.tags : [];
-  await fetchJson(`${CONTROL_BOARD_BASE}/ideas`, {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${controlBoardToken}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      id: existing.id,
-      title: existing.title,
-      description: `${existingDescription ? `${existingDescription}\n\n` : ''}${line}`,
-      category: existing.category || WAITLIST_CATEGORY,
-      status: existing.status || 'active',
-      priority: syncStatus === 'sync_failed' ? 'high' : (existing.priority || 'medium'),
-      tags: uniqueStrings([
-        ...existingTags,
-        WAITLIST_RECORD_TAG,
-        record.signupSource,
-        syncStatus === 'sync_failed' ? WAITLIST_FAILURE_TAG : 'waitlist-synced'
-      ])
-    })
-  });
-
-  return { ok: true, created: false, id: existing.id };
-}
-
 module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') {
     res.statusCode = 204;
@@ -367,56 +278,34 @@ module.exports = async (req, res) => {
   }
 
   const gccApiKey = process.env.GLOBAL_CONTROL_API_KEY || process.env.GCC_API_KEY || '';
-  const controlBoardToken = process.env.CONTROLBOARD_API_TOKEN || '';
-
-  let localRecordResult = null;
-  try {
-    localRecordResult = await upsertSubmissionRecord(controlBoardToken, record, gccApiKey ? 'pending_sync' : 'config_missing', gccApiKey ? 'Initial waitlist submission captured before CRM sync.' : 'Missing GLOBAL_CONTROL_API_KEY / GCC_API_KEY in deployment environment.');
-  } catch (error) {
-    console.error('Failed to persist waitlist submission record before CRM sync.', error);
-  }
 
   if (!gccApiKey) {
     sendJson(res, 200, {
       ok: true,
       redirected: true,
       syncStatus: 'skipped',
-      localRecordSaved: Boolean(localRecordResult?.ok),
-      configNeeded: ['GLOBAL_CONTROL_API_KEY (or GCC_API_KEY)', 'CONTROLBOARD_API_TOKEN (recommended for durable submission log + retry queue)']
+      configNeeded: ['GLOBAL_CONTROL_API_KEY (or GCC_API_KEY)']
     });
     return;
   }
 
   try {
     const syncResult = await createOrUpdateGccContact(gccApiKey, record);
-    try {
-      await upsertSubmissionRecord(controlBoardToken, record, 'synced', `GCC contact ${syncResult.action}.`);
-    } catch (error) {
-      console.error('Failed to mark waitlist submission as synced.', error);
-    }
 
     sendJson(res, 200, {
       ok: true,
       redirected: true,
       syncStatus: 'synced',
-      action: syncResult.action,
-      localRecordSaved: Boolean(localRecordResult?.ok)
+      action: syncResult.action
     });
   } catch (error) {
     console.error('GCC waitlist sync failed.', error);
-    try {
-      await upsertSubmissionRecord(controlBoardToken, record, 'sync_failed', error.message || 'Unknown GCC sync failure');
-    } catch (logError) {
-      console.error('Failed to log GCC sync failure for retry.', logError);
-    }
 
     sendJson(res, 200, {
       ok: true,
       redirected: true,
-      syncStatus: 'failed_logged',
-      localRecordSaved: Boolean(localRecordResult?.ok),
-      retryLogged: Boolean(controlBoardToken),
-      warning: 'CRM sync failed, but the signup was logged for retry if Control Board logging is configured.'
+      syncStatus: 'failed',
+      warning: 'CRM sync failed, but the signup form completed successfully.'
     });
   }
 };
