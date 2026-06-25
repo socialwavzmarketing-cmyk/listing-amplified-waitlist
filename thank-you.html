@@ -410,7 +410,8 @@
                     </div>
 
                     <div class="invite-actions">
-                        <a class="btn btn-primary" href="https://listingamplified.referral.site/login" target="_blank" rel="noopener noreferrer">Access Referral Portal</a>
+                        <a class="btn btn-primary" id="create-account-button" href="https://app.listingamplified.com/CreateAccount">Create Listing Amplified Account</a>
+                        <a class="btn btn-secondary" href="https://listingamplified.referral.site/login" target="_blank" rel="noopener noreferrer">Access Referral Portal</a>
                         <span class="btn btn-secondary" style="cursor:default;opacity:0.92;">Waitlist Spot Secured</span>
                     </div>
                 </div>
@@ -501,6 +502,27 @@
                 removeLogoBackground(heroLogo);
             } else {
                 heroLogo.addEventListener('load', () => removeLogoBackground(heroLogo), { once: true });
+            }
+        }
+
+        const createAccountButton = document.getElementById('create-account-button');
+        if (createAccountButton) {
+            try {
+                const stored = JSON.parse(localStorage.getItem('listingAmplifiedWaitlist') || '{}');
+                const params = new URLSearchParams();
+                const firstName = String(stored.firstName || '').trim();
+                const lastName = String(stored.lastName || '').trim();
+                const email = String(stored.email || '').trim();
+
+                if (firstName) params.set('firstName', firstName);
+                if (lastName) params.set('lastName', lastName);
+                if (email) params.set('email', email);
+
+                if ([firstName, lastName, email].some(Boolean)) {
+                    createAccountButton.href = `https://app.listingamplified.com/CreateAccount?${params.toString()}`;
+                }
+            } catch (error) {
+                console.error('Unable to build Create Account prefill link.', error);
             }
         }
     </script>
