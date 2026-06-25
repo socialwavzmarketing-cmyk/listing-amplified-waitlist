@@ -15,9 +15,6 @@
      po('settings', 'assets_host', 'https://assets.partnero.com');
      po('program', 'C2WUJDUI', 'load');
     </script>
-    <script>
-    po('integration', 'universal', {"form": "waitlist-form"});
-    </script>
     <!-- End PartneroJS -->
     <style>
         :root {
@@ -825,7 +822,28 @@
                         throw new Error(result.error || 'Unable to save your waitlist request right now.');
                     }
 
-                    window.location.href = '/thank-you.html';
+                    const partneroName = [payload.firstName, payload.lastName].filter(Boolean).join(' ').trim();
+                    if (typeof window.po === 'function' && payload.email) {
+                        try {
+                            window.po('customers', 'signup', {
+                                data: {
+                                    key: payload.email,
+                                    email: payload.email,
+                                    name: partneroName || null,
+                                    options: {
+                                        integration: 'listing_amplified_waitlist',
+                                        referral_url: window.location.href
+                                    }
+                                }
+                            }, 'C2WUJDUI');
+                        } catch (partneroError) {
+                            console.error('Partnero signup failed to fire.', partneroError);
+                        }
+                    }
+
+                    setTimeout(() => {
+                        window.location.href = '/thank-you.html';
+                    }, 1200);
                 } catch (error) {
                     submitButton.textContent = 'Request Founding Agent Access';
                     submitButton.disabled = false;
