@@ -108,6 +108,35 @@
             margin-bottom: 14px;
         }
 
+        .brand-lockup {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .brand-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.05rem, 2vw, 1.35rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #160f24;
+        }
+
+        .brand-powered {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(109, 40, 217, 0.08);
+            color: var(--plum-dark);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+
         .logo {
             display: block;
             width: min(100%, 300px);
@@ -375,6 +404,10 @@
                         <path d="M20 6 9 17l-5-5"/>
                     </svg>
                 </div>
+                <div class="brand-lockup" aria-label="Amplified Agents powered by Listing Amplified">
+                    <div class="brand-title">Amplified Agents</div>
+                    <div class="brand-powered">Powered by Listing Amplified</div>
+                </div>
                 <div class="logo-wrap">
                     <img class="logo" id="hero-logo" src="./listing-amplified-logo.jpg" alt="Listing Amplified logo">
                 </div>
@@ -402,8 +435,8 @@
                                 </svg>
                             </span>
                             <div>
-                                <h3>Complete Your Professional Profile</h3>
-                                <p>Your secure Listing Amplified account powers your Amplified Agents public profile, professional verification, service areas, future listing connections, and collaborative marketing tools.</p>
+                                <h3>Your Listing Amplified account powers your Amplified Agents profile.</h3>
+                                <p>Your secure account powers your public profile, professional verification, service areas, future listing connections, and collaborative marketing tools.</p>
                             </div>
                         </div>
                         <p class="placeholder-note">This step takes about one minute.</p>
@@ -454,7 +487,7 @@
                     <h2>Help Grow the Community</h2>
                     <p>Your referral link is already active.</p>
                 </div>
-                <p class="supporting-line" style="margin-top: 0; max-width: none;">Invite other California real estate professionals to join the community and earn Founding Member rewards as the network expands.</p>
+                <p class="supporting-line" style="margin-top: 0; max-width: none;">Invite other California real estate professionals to become Founding Members and help grow the community together.</p>
             </section>
 
             <div class="footer-note">Thanks for joining the first members helping shape the California launch community.</div>

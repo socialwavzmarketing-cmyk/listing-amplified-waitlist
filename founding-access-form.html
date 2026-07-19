@@ -104,6 +104,35 @@
             margin-bottom: 14px;
         }
 
+        .brand-lockup {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .brand-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.1rem, 2vw, 1.45rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #160f24;
+        }
+
+        .brand-powered {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(109, 40, 217, 0.08);
+            color: var(--plum-dark);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+
         .logo {
             display: block;
             width: min(100%, 320px);
@@ -652,11 +681,15 @@
                 <div class="hero-stack">
                     <section class="panel">
                         <div class="eyebrow">California Launch Community</div>
+                        <div class="brand-lockup" aria-label="Amplified Agents powered by Listing Amplified">
+                            <div class="brand-title">Amplified Agents</div>
+                            <div class="brand-powered">Powered by Listing Amplified</div>
+                        </div>
                         <div class="logo-wrap">
                             <img class="logo" id="hero-logo" src="./listing-amplified-logo.jpg" alt="Listing Amplified logo">
                         </div>
                         <h1>Build Your Professional Presence in California</h1>
-                        <p class="subtitle">Join the Founding Members of Amplified Agents and Listing Amplified.</p>
+                        <p class="subtitle">Become a Founding Member of Amplified Agents, powered by Listing Amplified.</p>
                         <div class="teaser-video">
                             <iframe src="https://www.youtube-nocookie.com/embed/eAKnufEysZ0?rel=0" title="Listing Amplified teaser video" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
@@ -667,7 +700,7 @@
                             <li><span class="check">✓</span><span>Join the first members helping shape the California launch community.</span></li>
                             <li><span class="check">✓</span><span>Receive early access, referral opportunities, and launch updates as the ecosystem grows.</span></li>
                         </ul>
-                        <p class="founding-note">Create your verified public profile, help consumers discover your business locally, and receive early access to the collaborative marketing tools inside Listing Amplified.</p>
+                        <p class="founding-note">Create your verified public profile, help consumers discover your business locally, and gain early access to the collaborative marketing tools inside Listing Amplified.</p>
                     </section>
 
                     <section class="value-section journey-section">
@@ -688,7 +721,7 @@
                     <section class="value-section">
                         <div class="value-header">
                             <h2 class="value-title">Why Professionals Are Joining Early</h2>
-                            <p class="value-copy">Amplified Agents and Listing Amplified work together so your public presence and platform access feel like one connected experience.</p>
+                            <p class="value-copy">Amplified Agents is your public professional presence. Listing Amplified powers the tools behind it. Together they help you grow your visibility, build trust, showcase your listings, and collaborate with other real estate professionals.</p>
                         </div>
 
                         <div class="value-grid">
