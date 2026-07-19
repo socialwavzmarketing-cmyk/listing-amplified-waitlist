@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listing Amplified - Founding Agent Waitlist</title>
+    <title>Amplified Agents + Listing Amplified | Founding Members</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- PartneroJS -->
     <script>
@@ -165,6 +165,82 @@
             box-shadow: 0 14px 28px rgba(76, 29, 149, 0.09);
         }
 
+        .journey-section {
+            padding: 24px;
+        }
+
+        .journey-header {
+            margin-bottom: 18px;
+        }
+
+        .journey-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 6px;
+        }
+
+        .journey-copy {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .journey-strip {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 12px;
+            align-items: stretch;
+        }
+
+        .journey-step {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 18px 16px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(109, 40, 217, 0.1);
+            box-shadow: 0 12px 28px rgba(17, 12, 32, 0.08);
+            min-height: 100%;
+        }
+
+        .journey-step::after {
+            content: "→";
+            position: absolute;
+            top: 50%;
+            right: -12px;
+            transform: translateY(-50%);
+            color: var(--plum-dark);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .journey-step:last-child::after {
+            display: none;
+        }
+
+        .journey-number {
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(109, 40, 217, 0.14) 0%, rgba(37, 99, 235, 0.14) 100%);
+            color: var(--plum-dark);
+            font-weight: 700;
+            font-size: 0.92rem;
+        }
+
+        .journey-step strong {
+            font-size: 0.96rem;
+            line-height: 1.45;
+            color: #23192f;
+        }
+
         .value-header {
             margin-bottom: 16px;
         }
@@ -192,7 +268,7 @@
 
         .value-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 18px;
         }
 
@@ -253,55 +329,6 @@
             font-size: 0.92rem;
             line-height: 1.6;
             margin: 0;
-        }
-
-        .how-strip {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 12px;
-            margin-top: 8px;
-            padding: 18px 20px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(109, 40, 217, 0.1);
-            box-shadow: 0 12px 28px rgba(17, 12, 32, 0.08);
-            transition: box-shadow 0.22s ease, transform 0.22s ease;
-        }
-
-        .how-strip:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 16px 32px rgba(17, 12, 32, 0.1);
-        }
-
-        .how-step {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            min-width: 0;
-        }
-
-        .how-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            flex: 0 0 38px;
-            background: rgba(109, 40, 217, 0.08);
-            color: var(--plum-dark);
-        }
-
-        .how-icon svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .how-step strong {
-            display: block;
-            font-size: 0.9rem;
-            line-height: 1.35;
-            color: #23192f;
         }
 
         .beta-note {
@@ -438,16 +465,22 @@
                 gap: 20px;
             }
 
+            .journey-strip,
             .value-grid {
                 grid-template-columns: 1fr;
                 gap: 14px;
             }
 
-            .how-strip {
-                grid-template-columns: 1fr;
-                gap: 10px;
-                margin-top: 10px;
-                padding: 16px;
+            .journey-section {
+                padding: 22px;
+            }
+
+            .journey-step::after {
+                content: "↓";
+                top: auto;
+                right: 50%;
+                bottom: -18px;
+                transform: translateX(50%);
             }
 
             .panel { padding: 28px; }
@@ -521,7 +554,13 @@
             .value-card p {
                 font-size: 0.89rem;
             }
-            .how-step strong {
+            .journey-section {
+                padding: 20px;
+            }
+            .journey-step {
+                padding: 15px;
+            }
+            .journey-step strong {
                 font-size: 0.88rem;
             }
             .founding-note,
@@ -538,26 +577,56 @@
             <div class="shell">
                 <div class="hero-stack">
                     <section class="panel">
-                        <div class="eyebrow">Founding Agent Beta</div>
+                        <div class="eyebrow">California Launch Community</div>
                         <div class="logo-wrap">
                             <img class="logo" id="hero-logo" src="./listing-amplified-logo.jpg" alt="Listing Amplified logo">
                         </div>
-                        <h1>Expand Your Reach with an Agent-Powered Visibility Network</h1>
-                        <p class="subtitle">Built for agents who want more reach than the MLS alone can deliver, Listing Amplified gives founding members early access to a collaborative network designed to increase exposure, sharing, and momentum around every listing.</p>
+                        <h1>Build Your Professional Presence in California</h1>
+                        <p class="subtitle">Join the Founding Members of Amplified Agents and Listing Amplified.</p>
 
                         <ul class="support-list">
-                            <li><span class="check">✓</span><span>Early beta access before public launch</span></li>
-                            <li><span class="check">✓</span><span>Built for both listing agents and buyer agents</span></li>
-                            <li><span class="check">✓</span><span>Help shape an agent-powered listing network</span></li>
-                            <li><span class="check">✓</span><span>Referral access for founding members</span></li>
+                            <li><span class="check">✓</span><span>Create your verified public profile through Amplified Agents so consumers can discover your business locally.</span></li>
+                            <li><span class="check">✓</span><span>Use Listing Amplified as the secure platform powering your profile, verification, and future marketing tools.</span></li>
+                            <li><span class="check">✓</span><span>Join the first members helping shape the California launch community.</span></li>
+                            <li><span class="check">✓</span><span>Receive early access, referral opportunities, and launch updates as the ecosystem grows.</span></li>
                         </ul>
-                        <p class="founding-note">Founding members get in early, help shape the platform, and build momentum through more collaborative listing marketing from the start.</p>
+                        <p class="founding-note">Create your verified public profile, help consumers discover your business locally, and receive early access to the collaborative marketing tools inside Listing Amplified.</p>
+                    </section>
+
+                    <section class="value-section journey-section">
+                        <div class="journey-header">
+                            <h2 class="journey-title">Your Journey Starts Here</h2>
+                            <p class="journey-copy">A simple first step into one connected ecosystem—so you know exactly what happens next.</p>
+                        </div>
+
+                        <div class="journey-strip" aria-label="What happens next">
+                            <div class="journey-step">
+                                <span class="journey-number">1</span>
+                                <strong>Join as a Founding Member</strong>
+                            </div>
+                            <div class="journey-step">
+                                <span class="journey-number">2</span>
+                                <strong>Create Your Professional Account</strong>
+                            </div>
+                            <div class="journey-step">
+                                <span class="journey-number">3</span>
+                                <strong>Complete Your Professional Profile</strong>
+                            </div>
+                            <div class="journey-step">
+                                <span class="journey-number">4</span>
+                                <strong>Get Verified</strong>
+                            </div>
+                            <div class="journey-step">
+                                <span class="journey-number">5</span>
+                                <strong>Publish Your Public Profile &amp; Explore Listing Amplified</strong>
+                            </div>
+                        </div>
                     </section>
 
                     <section class="value-section">
                         <div class="value-header">
-                            <h2 class="value-title">Why Founding Agents Are Joining</h2>
-                            <p class="value-copy">A smarter way to expand visibility, share faster, and build momentum before the public launch.</p>
+                            <h2 class="value-title">Why Professionals Are Joining Early</h2>
+                            <p class="value-copy">Amplified Agents and Listing Amplified work together so your public presence and platform access feel like one connected experience.</p>
                         </div>
 
                         <div class="value-grid">
@@ -570,8 +639,8 @@
                                     </svg>
                                 </span>
                                 <div class="value-body">
-                                    <h3>Expand Your Listing Reach</h3>
-                                    <p>Get your listings in front of more agents and buyers through collaborative sharing and ready-made marketing assets.</p>
+                                    <h3>Verified Professional Profile</h3>
+                                    <p>Help consumers discover you by city, county, and service area.</p>
                                 </div>
                             </article>
 
@@ -585,8 +654,8 @@
                                     </svg>
                                 </span>
                                 <div class="value-body">
-                                    <h3>Ready-to-Share Marketing Content</h3>
-                                    <p>Captions, images, reels, and social-ready content designed to help agents share listings faster.</p>
+                                    <h3>Listing Amplified Access</h3>
+                                    <p>Explore collaborative listing marketing tools and prepare for future platform features.</p>
                                 </div>
                             </article>
 
@@ -602,65 +671,53 @@
                                     </svg>
                                 </span>
                                 <div class="value-body">
-                                    <h3>Agent-Powered Visibility Network</h3>
-                                    <p>Join a growing network of agents helping amplify listings beyond the MLS and traditional marketing channels.</p>
+                                    <h3>Founding Member Benefits</h3>
+                                    <p>Receive founder pricing opportunities, referral rewards, and priority access as the platform grows.</p>
+                                </div>
+                            </article>
+
+                            <article class="value-card">
+                                <span class="value-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 3v18"/>
+                                        <path d="M5 8c0-2.2 3.1-4 7-4s7 1.8 7 4-3.1 4-7 4-7 1.8-7 4 3.1 4 7 4 7-1.8 7-4"/>
+                                    </svg>
+                                </span>
+                                <div class="value-body">
+                                    <h3>Grow Your Professional Presence</h3>
+                                    <p>Establish your profile before statewide expansion begins.</p>
                                 </div>
                             </article>
                         </div>
+
+                        <p class="founding-note"><strong>Amplified Agents</strong> is your public professional presence where consumers can discover you, explore your service areas, and connect with your business. <strong>Listing Amplified</strong> is the secure platform that powers your professional profile, verification, listing marketing tools, and future collaboration features.</p>
                     </section>
                 </div>
 
-                <section class="how-strip" aria-label="How Listing Amplified works">
-                    <div class="how-step">
-                        <span class="how-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M7 4.5h10"/>
-                                <path d="M7 9h10"/>
-                                <path d="M7 13.5h6"/>
-                                <rect x="4" y="3" width="16" height="18" rx="3"/>
-                            </svg>
-                        </span>
-                        <strong>Add or share listings</strong>
+                <section class="value-section">
+                    <div class="value-header">
+                        <h2 class="value-title">Why Join Early?</h2>
+                        <p class="value-copy">Founding Members have the opportunity to help shape the future of Amplified Agents and Listing Amplified.</p>
                     </div>
-                    <div class="how-step">
-                        <span class="how-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="7" cy="12" r="2.5"/>
-                                <circle cx="17" cy="7" r="2.5"/>
-                                <circle cx="17" cy="17" r="2.5"/>
-                                <path d="M9.2 10.8 14.8 8.2"/>
-                                <path d="M9.2 13.2 14.8 15.8"/>
-                            </svg>
-                        </span>
-                        <strong>Agents amplify across their networks</strong>
-                    </div>
-                    <div class="how-step">
-                        <span class="how-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M4 16l5-5 4 4 7-8"/>
-                                <path d="M20 10V7h-3"/>
-                            </svg>
-                        </span>
-                        <strong>Listings gain more visibility and reach</strong>
-                    </div>
+                    <p class="founding-note" style="margin-top:0;">As the community grows across California, Founding Members receive early updates, referral opportunities, and priority access to future features.</p>
                 </section>
 
                 <section class="form-card">
                     <div class="form-top">
-                        <div class="form-title">Request Founding Agent Access</div>
-                        <p class="form-copy">Initial founding access is focused on select California beta markets.<br>Join the list to be first in line as new markets open.</p>
+                        <div class="form-title">Reserve Your Founding Membership</div>
+                        <p class="form-copy">Join the California launch community and take the first step toward your public professional presence, verification, and early access inside Listing Amplified.</p>
                     </div>
 
                     <div class="cta-wrap">
-                        <a class="mintbird-btn" data-funnel="1288" data-step="3295" data-type="checkout">Request Founding Agent Access</a>
+                        <a class="mintbird-btn" data-funnel="1288" data-step="3295" data-type="checkout">Reserve Your Founding Membership</a>
                     </div>
 
-                    <p class="reassurance">No spam. Early members receive priority access before public rollout.</p>
+                    <p class="reassurance">No spam. Founding Members receive launch updates and early access information as the California community expands.</p>
                 </section>
             </div>
 
             <div class="site-footer">
-                <div>Listing Amplified is currently in early access/beta.</div>
+                <div>Listing Amplified is currently in early access for the California launch community.</div>
                 <div>Features, rewards, and launch offerings may evolve over time.</div>
                 <div class="site-footer-links">
                     <a href="/terms">Terms of Service</a>
