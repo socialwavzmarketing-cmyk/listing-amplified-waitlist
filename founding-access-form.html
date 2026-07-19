@@ -86,29 +86,15 @@
             padding: 24px;
         }
 
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            width: fit-content;
-            padding: 10px 14px;
-            border-radius: 999px;
-            background: rgba(109, 40, 217, 0.1);
-            color: var(--plum-dark);
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 18px;
-        }
-
         .logo-wrap {
-            margin-bottom: 14px;
+            margin-bottom: 10px;
         }
 
         .brand-lockup {
             display: inline-flex;
             flex-direction: column;
-            gap: 6px;
-            margin-bottom: 16px;
+            gap: 4px;
+            margin-bottom: 10px;
         }
 
         .brand-title {
@@ -135,7 +121,7 @@
 
         .logo {
             display: block;
-            width: min(100%, 320px);
+            width: min(100%, 280px);
             height: auto;
         }
 
@@ -144,14 +130,14 @@
             font-size: clamp(2.1rem, 4vw, 3.35rem);
             line-height: 1.06;
             letter-spacing: -0.04em;
-            margin-bottom: 18px;
+            margin-bottom: 12px;
         }
 
         .subtitle {
             font-size: 1.04rem;
             line-height: 1.65;
             color: var(--muted);
-            margin-bottom: 26px;
+            margin-bottom: 20px;
             max-width: 54ch;
         }
 
@@ -611,25 +597,32 @@
             .actions {
                 flex-direction: column;
             }
-            .eyebrow {
-                margin-bottom: 14px;
-                padding: 9px 13px;
-            }
             .logo-wrap {
-                margin-bottom: 12px;
+                margin-bottom: 8px;
             }
             .logo {
-                width: min(100%, 250px);
+                width: min(100%, 210px);
+            }
+            .brand-lockup {
+                gap: 3px;
+                margin-bottom: 8px;
+            }
+            .brand-title {
+                font-size: 1rem;
+            }
+            .brand-powered {
+                padding: 6px 10px;
+                font-size: 0.76rem;
             }
             h1 {
                 font-size: 1.78rem;
                 line-height: 1.05;
-                margin-bottom: 14px;
+                margin-bottom: 10px;
             }
             .subtitle {
                 font-size: 0.98rem;
                 line-height: 1.58;
-                margin-bottom: 20px;
+                margin-bottom: 16px;
             }
             .support-list {
                 gap: 10px;
@@ -680,7 +673,6 @@
             <div class="shell">
                 <div class="hero-stack">
                     <section class="panel">
-                        <div class="eyebrow">California Launch Community</div>
                         <div class="brand-lockup" aria-label="Amplified Agents powered by Listing Amplified">
                             <div class="brand-title">Amplified Agents</div>
                             <div class="brand-powered">Powered by Listing Amplified</div>
@@ -697,7 +689,7 @@
                         <ul class="support-list">
                             <li><span class="check">✓</span><span>Create your verified public profile through Amplified Agents so consumers can discover your business locally.</span></li>
                             <li><span class="check">✓</span><span>Use Listing Amplified as the secure platform powering your profile, verification, and future marketing tools.</span></li>
-                            <li><span class="check">✓</span><span>Join the first members helping shape the California launch community.</span></li>
+                            <li><span class="check">✓</span><span>Join early and help shape the California launch community.</span></li>
                             <li><span class="check">✓</span><span>Receive early access, referral opportunities, and launch updates as the ecosystem grows.</span></li>
                         </ul>
                         <p class="founding-note">Create your verified public profile, help consumers discover your business locally, and gain early access to the collaborative marketing tools inside Listing Amplified.</p>
@@ -766,7 +758,7 @@
                                     </svg>
                                 </span>
                                 <div class="value-body">
-                                    <h3>Founding Member Benefits</h3>
+                                    <h3>Early Access Benefits</h3>
                                     <p>Receive founder pricing opportunities, referral rewards, and priority access as the platform grows.</p>
                                 </div>
                             </article>
@@ -792,9 +784,9 @@
                 <section class="value-section">
                     <div class="value-header">
                         <h2 class="value-title">Why Join Early?</h2>
-                        <p class="value-copy">Founding Members have the opportunity to help shape the future of Amplified Agents and Listing Amplified.</p>
+                        <p class="value-copy">Join early to help shape the future of Amplified Agents and Listing Amplified.</p>
                     </div>
-                    <p class="founding-note" style="margin-top:0;">As the community grows across California, Founding Members receive early updates, referral opportunities, and priority access to future features.</p>
+                    <p class="founding-note" style="margin-top:0;">As the community grows across California, you’ll receive early updates, referral opportunities, and priority access to future features.</p>
                 </section>
 
                 <section class="form-card">
@@ -830,7 +822,7 @@
                         </div>
                     </form>
 
-                    <p class="reassurance">No spam. Founding Members receive launch updates and early access information as the California community expands.</p>
+                    <p class="reassurance">No spam. You’ll receive launch updates and early access information as the California community expands.</p>
                     <p class="status-message" id="form-status">Something went wrong. Please try again.</p>
                 </section>
             </div>

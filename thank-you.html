@@ -70,20 +70,6 @@
             padding: 24px;
         }
 
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            width: fit-content;
-            padding: 10px 14px;
-            border-radius: 999px;
-            background: rgba(109, 40, 217, 0.1);
-            color: var(--plum-dark);
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 18px;
-        }
-
         .success-mark {
             width: 52px;
             height: 52px;
@@ -112,7 +98,7 @@
             display: inline-flex;
             flex-direction: column;
             gap: 6px;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .brand-title {
@@ -398,7 +384,6 @@
     <div class="container">
         <div class="shell">
             <section class="card">
-                <div class="eyebrow">California Launch Community</div>
                 <div class="success-mark" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M20 6 9 17l-5-5"/>
@@ -419,7 +404,7 @@
             <section class="invite-card">
                 <div class="section-header">
                     <h2>Your Founding Membership Includes</h2>
-                    <p>✓ Your Founding Member benefits are active.<br>✓ Your referral account has been created.<br>✓ You’ll receive launch updates and feature announcements.<br>✓ Your place in the California launch community is reserved.</p>
+                    <p>✓ Your early access benefits are active.<br>✓ Your referral account has been created.<br>✓ You’ll receive launch updates and feature announcements.<br>✓ Your place in the California launch community is reserved.</p>
                 </div>
 
                 <div class="referral-panel">
@@ -444,7 +429,6 @@
 
                     <div class="invite-actions">
                         <a class="btn btn-primary" id="create-account-button" href="https://app.listingamplified.com/CreateAccount" target="_blank" rel="noopener noreferrer">Complete My Professional Profile</a>
-                        <a class="btn btn-secondary" href="https://listingamplified.referral.site/login" target="_blank" rel="noopener noreferrer">View My Referral Portal</a>
                     </div>
                 </div>
             </section>
@@ -485,9 +469,12 @@
             <section class="invite-card">
                 <div class="section-header">
                     <h2>Help Grow the Community</h2>
-                    <p>Your referral link is already active.</p>
+                    <p>Your referral account is already active.</p>
                 </div>
                 <p class="supporting-line" style="margin-top: 0; max-width: none;">Invite other California real estate professionals to become Founding Members and help grow the community together.</p>
+                <div class="invite-actions" style="justify-content: flex-start; margin-top: 14px;">
+                    <a class="btn btn-secondary" href="https://listingamplified.referral.site/login" target="_blank" rel="noopener noreferrer">View My Referral Portal</a>
+                </div>
             </section>
 
             <div class="footer-note">Thanks for joining the first members helping shape the California launch community.</div>
