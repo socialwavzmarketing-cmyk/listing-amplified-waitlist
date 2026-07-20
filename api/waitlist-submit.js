@@ -1,6 +1,11 @@
 const TAG_GROUP_ID = '6a0c9e30923e612330369d32';
-const REQUIRED_TAGS = {
-  'Listing Amplified': '6a0c9e38923e612330369dfa'
+const REQUIRED_TAGS_BY_SOURCE = {
+  default: {
+    'Listing Amplified': '6a0c9e38923e612330369dfa'
+  },
+  'amplified-agents-directory-form': {
+    'Amplified Agents Directory': null
+  }
 };
 
 const GCC_BASE = 'https://api.globalcontrol.io/api/ai';
@@ -160,8 +165,9 @@ function mergeCustomFields(existing = [], incoming = []) {
   return Array.from(map.values());
 }
 
-async function ensureRequiredTags(gccApiKey) {
-  const tagIds = { ...REQUIRED_TAGS };
+async function ensureRequiredTags(gccApiKey, signupSource = '') {
+  const sourceTags = REQUIRED_TAGS_BY_SOURCE[signupSource] || REQUIRED_TAGS_BY_SOURCE.default;
+  const tagIds = { ...sourceTags };
   const existing = await fetchJson(`${GCC_BASE}/tags?limit=2000`, {
     headers: { 'X-API-KEY': gccApiKey }
   });
@@ -171,6 +177,11 @@ async function ensureRequiredTags(gccApiKey) {
     const matched = tags.find((tag) => String(tag.name || '').toLowerCase() === name.toLowerCase());
     if (matched?._id) {
       tagIds[name] = matched._id;
+      continue;
+    }
+
+    if (currentId) {
+      tagIds[name] = currentId;
       continue;
     }
 
@@ -220,7 +231,7 @@ function buildTaggedUpsertPayload(record, tagIds = [], base = {}) {
 }
 
 async function createOrUpdateGccContact(gccApiKey, record) {
-  const requiredTagIds = await ensureRequiredTags(gccApiKey);
+  const requiredTagIds = await ensureRequiredTags(gccApiKey, record.signupSource);
   const existingContact = await findExistingContact(gccApiKey, record.email);
   const existingDetails = existingContact?._id ? await getContactById(gccApiKey, existingContact._id) : null;
 
