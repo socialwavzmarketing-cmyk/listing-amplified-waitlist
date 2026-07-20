@@ -4,6 +4,16 @@
       "source": "/",
       "destination": "/founding-access-form.html",
       "permanent": false
+    },
+    {
+      "source": "/amplified-agents",
+      "destination": "/directory-founding-access-form.html",
+      "permanent": false
+    },
+    {
+      "source": "/amplified-agents/thank-you",
+      "destination": "/directory-thank-you.html",
+      "permanent": false
     }
   ]
 }
