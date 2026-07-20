@@ -90,7 +90,6 @@
             display: inline-flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 3px;
             margin-bottom: 16px;
         }
 
@@ -98,14 +97,6 @@
             display: block;
             width: min(100%, 382px);
             height: auto;
-        }
-
-        .brand-powered {
-            color: rgba(76, 29, 149, 0.62);
-            font-size: 0.74rem;
-            font-weight: 500;
-            font-style: italic;
-            letter-spacing: 0.01em;
         }
 
         h1 {
@@ -125,8 +116,28 @@
             max-width: 54ch;
         }
 
+        .video-intro {
+            margin-top: 22px;
+            margin-bottom: 12px;
+        }
+
+        .video-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.18rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 6px;
+        }
+
+        .video-copy {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            max-width: 52ch;
+        }
+
         .teaser-video {
-            margin: 0 auto 22px;
+            margin: 0 auto 0;
             width: 100%;
             max-width: 820px;
             border-radius: 24px;
@@ -582,15 +593,10 @@
                 flex-direction: column;
             }
             .brand-lockup {
-                gap: 2px;
                 margin-bottom: 12px;
             }
             .brand-mark {
                 width: min(100%, 264px);
-            }
-            .brand-powered {
-                font-size: 0.68rem;
-                letter-spacing: 0.01em;
             }
             h1 {
                 font-size: 1.78rem;
@@ -602,6 +608,18 @@
                 font-size: 0.98rem;
                 line-height: 1.58;
                 margin-bottom: 14px;
+            }
+            .video-intro {
+                margin-top: 18px;
+                margin-bottom: 10px;
+            }
+            .video-title {
+                font-size: 1.05rem;
+                margin-bottom: 5px;
+            }
+            .video-copy {
+                font-size: 0.9rem;
+                line-height: 1.55;
             }
             .support-list {
                 gap: 10px;
@@ -652,15 +670,11 @@
             <div class="shell">
                 <div class="hero-stack">
                     <section class="panel">
-                        <div class="brand-lockup" aria-label="Amplified Agents powered by Listing Amplified">
-                            <img class="brand-mark" id="hero-logo" src="./amplified-agents-logo.svg" alt="Amplified Agents logo">
-                            <div class="brand-powered">Powered by Listing Amplified</div>
+                        <div class="brand-lockup" aria-label="Amplified Agents logo">
+                            <img class="brand-mark" id="hero-logo" src="./amplified-agents-landing-logo.svg" alt="Amplified Agents logo">
                         </div>
                         <h1>Build Your Professional Presence in California</h1>
                         <p class="subtitle">Become a Founding Member of Amplified Agents, powered by Listing Amplified.</p>
-                        <div class="teaser-video">
-                            <iframe src="https://www.youtube-nocookie.com/embed/eAKnufEysZ0?rel=0" title="Listing Amplified teaser video" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                        </div>
 
                         <ul class="support-list">
                             <li><span class="check">✓</span><span>Create your verified public profile through Amplified Agents so consumers can discover your business locally.</span></li>
@@ -668,6 +682,13 @@
                             <li><span class="check">✓</span><span>Join early and help shape the California launch community.</span></li>
                             <li><span class="check">✓</span><span>Receive early access, referral opportunities, and launch updates as the ecosystem grows.</span></li>
                         </ul>
+                        <div class="video-intro">
+                            <h2 class="video-title">Discover Listing Amplified</h2>
+                            <p class="video-copy">See how Listing Amplified helps real estate professionals collaborate, promote listings, and expand their reach.</p>
+                        </div>
+                        <div class="teaser-video">
+                            <iframe src="https://www.youtube-nocookie.com/embed/eAKnufEysZ0?rel=0" title="Listing Amplified teaser video" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
                         <p class="founding-note">Create your verified public profile, help consumers discover your business locally, and gain early access to the collaborative marketing tools inside Listing Amplified.</p>
                     </section>
 
