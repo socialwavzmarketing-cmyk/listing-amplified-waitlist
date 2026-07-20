@@ -72,7 +72,7 @@
         }
 
         .panel {
-            padding: 48px;
+            padding: 40px 48px 42px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -86,28 +86,26 @@
             padding: 24px;
         }
 
-        .eyebrow {
+        .brand-lockup {
             display: inline-flex;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-start;
             gap: 8px;
-            width: fit-content;
-            padding: 10px 14px;
-            border-radius: 999px;
-            background: rgba(109, 40, 217, 0.1);
-            color: var(--plum-dark);
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 18px;
+            margin-bottom: 12px;
         }
 
-        .logo-wrap {
-            margin-bottom: 14px;
-        }
-
-        .logo {
+        .brand-mark {
             display: block;
-            width: min(100%, 320px);
+            width: min(100%, 360px);
             height: auto;
+        }
+
+        .brand-powered {
+            color: rgba(76, 29, 149, 0.78);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
         }
 
         h1 {
@@ -115,14 +113,15 @@
             font-size: clamp(2.1rem, 4vw, 3.35rem);
             line-height: 1.06;
             letter-spacing: -0.04em;
-            margin-bottom: 18px;
+            margin-bottom: 10px;
+            max-width: 12ch;
         }
 
         .subtitle {
             font-size: 1.04rem;
             line-height: 1.65;
             color: var(--muted);
-            margin-bottom: 26px;
+            margin-bottom: 16px;
             max-width: 54ch;
         }
 
@@ -493,7 +492,7 @@
             .panel,
             .form-card,
             .value-section { border-radius: 22px; }
-            .panel { padding: 24px; }
+            .panel { padding: 22px; }
             .form-card { padding: 22px; }
             .value-section { padding: 20px; }
             .grid { grid-template-columns: 1fr; gap: 0; }
@@ -508,25 +507,27 @@
             .actions {
                 flex-direction: column;
             }
-            .eyebrow {
-                margin-bottom: 14px;
-                padding: 9px 13px;
+            .brand-lockup {
+                gap: 6px;
+                margin-bottom: 10px;
             }
-            .logo-wrap {
-                margin-bottom: 12px;
-            }
-            .logo {
+            .brand-mark {
                 width: min(100%, 250px);
+            }
+            .brand-powered {
+                font-size: 0.7rem;
+                letter-spacing: 0.06em;
             }
             h1 {
                 font-size: 1.78rem;
                 line-height: 1.05;
-                margin-bottom: 14px;
+                margin-bottom: 8px;
+                max-width: 11ch;
             }
             .subtitle {
                 font-size: 0.98rem;
                 line-height: 1.58;
-                margin-bottom: 20px;
+                margin-bottom: 14px;
             }
             .support-list {
                 gap: 10px;
@@ -577,9 +578,9 @@
             <div class="shell">
                 <div class="hero-stack">
                     <section class="panel">
-                        <div class="eyebrow">California Launch Community</div>
-                        <div class="logo-wrap">
-                            <img class="logo" id="hero-logo" src="./listing-amplified-logo.jpg" alt="Listing Amplified logo">
+                        <div class="brand-lockup" aria-label="Amplified Agents powered by Listing Amplified">
+                            <img class="brand-mark" id="hero-logo" src="./amplified-agents-logo.svg" alt="Amplified Agents logo">
+                            <div class="brand-powered">Powered by Listing Amplified</div>
                         </div>
                         <h1>Build Your Professional Presence in California</h1>
                         <p class="subtitle">Join the Founding Members of Amplified Agents and Listing Amplified.</p>
