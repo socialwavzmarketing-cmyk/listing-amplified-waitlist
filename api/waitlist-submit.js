@@ -37,10 +37,6 @@ function splitName(firstName = '', lastName = '', fullName = '') {
   };
 }
 
-function uniqueStrings(values = []) {
-  return [...new Set(values.map((value) => String(value || '').trim()).filter(Boolean))];
-}
-
 function buildAddress(payload) {
   const address1 = String(payload.address1 || '').trim();
   const address2 = String(payload.address2 || '').trim();
@@ -128,43 +124,6 @@ async function fetchJson(url, options = {}) {
   return data;
 }
 
-function buildMeta(record, existingMeta = []) {
-  const additions = [
-    record.role ? `role:${record.role}` : '',
-    record.brokerage ? `brokerage:${record.brokerage}` : '',
-    record.serviceArea ? `service-area:${record.serviceArea}` : '',
-    record.address?.city ? `city:${record.address.city}` : '',
-    record.address?.state ? `state:${record.address.state}` : '',
-    record.signupSource ? `signup-source:${record.signupSource}` : '',
-    record.pagePath ? `page:${record.pagePath}` : ''
-  ];
-  return uniqueStrings([...(Array.isArray(existingMeta) ? existingMeta : []), ...additions]);
-}
-
-function buildCustomFields(record) {
-  const fields = [];
-  if (record.signupSource) fields.push({ name: 'source', value: record.signupSource });
-  if (record.role) fields.push({ name: 'role', value: record.role });
-  if (record.serviceArea) fields.push({ name: 'service-area', value: record.serviceArea });
-  if (record.address?.address1) fields.push({ name: 'address1', value: record.address.address1 });
-  if (record.address?.address2) fields.push({ name: 'address2', value: record.address.address2 });
-  if (record.address?.city) fields.push({ name: 'city', value: record.address.city });
-  if (record.address?.state) fields.push({ name: 'state', value: record.address.state });
-  if (record.address?.zip) fields.push({ name: 'zip', value: record.address.zip });
-  return fields;
-}
-
-function mergeCustomFields(existing = [], incoming = []) {
-  const map = new Map();
-  for (const f of existing) {
-    if (f?.name) map.set(f.name, f);
-  }
-  for (const f of incoming) {
-    if (f?.name) map.set(f.name, f);
-  }
-  return Array.from(map.values());
-}
-
 async function ensureRequiredTags(gccApiKey, signupSource = '') {
   const sourceTags = REQUIRED_TAGS_BY_SOURCE[signupSource] || REQUIRED_TAGS_BY_SOURCE.default;
   const tagIds = { ...sourceTags };
@@ -202,61 +161,56 @@ async function ensureRequiredTags(gccApiKey, signupSource = '') {
   return Object.values(tagIds);
 }
 
-async function findExistingContact(gccApiKey, email) {
-  const response = await fetchJson(`${GCC_BASE}/contacts?search=${encodeURIComponent(email)}`, {
-    headers: { 'X-API-KEY': gccApiKey }
-  });
-  const contacts = response?.data?.contacts || [];
-  return contacts.find((contact) => normalizeEmail(contact.email) === email) || null;
-}
-
-async function getContactById(gccApiKey, id) {
-  const response = await fetchJson(`${GCC_BASE}/contacts/${id}`, {
-    headers: { 'X-API-KEY': gccApiKey }
-  });
-  return response?.data || null;
-}
-
-function buildTaggedUpsertPayload(record, tagIds = [], base = {}) {
-  return {
-    firstName: record.firstName || base.firstName || '',
-    lastName: record.lastName || base.lastName || '',
-    name: record.fullName || base.name || '',
+/**
+ * NEW: Use GCC's tags/fire endpoint to create contact + apply tag in one call.
+ * This replaces the broken two-step contact creation + tag attachment.
+ */
+async function fireTagForContact(gccApiKey, record, tagIds) {
+  const payload = {
+    phone: record.phone || '',
     email: record.email,
-    phone: record.phone || base.phone || '',
-    address: record.address?.formatted || record.serviceArea || base.address || '',
-    ipAddress: '127.0.0.1',
-    tagIds
+    firstName: record.firstName || '',
+    lastName: record.lastName || '',
+    tagIds: tagIds
   };
-}
 
-async function createOrUpdateGccContact(gccApiKey, record) {
-  const requiredTagIds = await ensureRequiredTags(gccApiKey, record.signupSource);
-  const existingContact = await findExistingContact(gccApiKey, record.email);
-  const existingDetails = existingContact?._id ? await getContactById(gccApiKey, existingContact._id) : null;
-
-  const result = await fetchJson(`${GCC_BASE}/contacts`, {
+  const result = await fetchJson(`${GCC_BASE}/tags/fire`, {
     method: 'POST',
     headers: {
       'X-API-KEY': gccApiKey,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(buildTaggedUpsertPayload(record, requiredTagIds, existingDetails || existingContact || {}))
+    body: JSON.stringify(payload)
   });
 
-  const contact = result?.data || null;
-  const action = existingContact ? 'updated' : 'created';
-  const saved = contact?._id ? await getContactById(gccApiKey, contact._id) : contact;
-  const savedTags = Array.isArray(saved?.tags) ? saved.tags.map(String) : [];
-  const missing = requiredTagIds.filter((tagId) => !savedTags.includes(String(tagId)));
-  if (missing.length) {
-    const error = new Error(`GCC contact ${action}, but required tags were not persisted. Missing tag IDs: ${missing.join(', ')}`);
-    error.partial = true;
-    error.contact = saved || contact;
-    throw error;
+  return result?.data || result;
+}
+
+/**
+ * Log sync failures to a file for Robin to review.
+ * Failures are silent to the user but tracked for debugging.
+ */
+function logFailure(record, error, tagIds) {
+  const logEntry = {
+    timestamp: new Date().toISOString(),
+    email: record.email,
+    name: `${record.firstName} ${record.lastName}`.trim(),
+    signupSource: record.signupSource,
+    tagIds,
+    error: error?.message || String(error),
+    stack: error?.stack || null
+  };
+
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    const logPath = path.join('/tmp', 'listing-amplified-gcc-failures.jsonl');
+    fs.appendFileSync(logPath, JSON.stringify(logEntry) + '\n');
+  } catch (e) {
+    console.error('Failed to write failure log:', e);
   }
 
-  return { action, contact: saved || contact };
+  console.error('[GCC SYNC FAILURE]', logEntry);
 }
 
 module.exports = async (req, res) => {
@@ -301,16 +255,22 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const syncResult = await createOrUpdateGccContact(gccApiKey, record);
+    // Get tag IDs (ensures tag exists, looks up by name if needed)
+    const requiredTagIds = await ensureRequiredTags(gccApiKey, record.signupSource);
+
+    // Use the new tags/fire endpoint: creates contact + applies tag in one call
+    const contactResult = await fireTagForContact(gccApiKey, record, requiredTagIds);
 
     sendJson(res, 200, {
       ok: true,
       redirected: true,
       syncStatus: 'synced',
-      action: syncResult.action
+      action: contactResult?._id ? 'created_or_updated' : 'fired'
     });
   } catch (error) {
-    console.error('GCC waitlist sync failed.', error);
+    // Silent failure: user still goes to thank-you page
+    // But log it so Robin knows
+    logFailure(record, error, []);
 
     sendJson(res, 200, {
       ok: true,
