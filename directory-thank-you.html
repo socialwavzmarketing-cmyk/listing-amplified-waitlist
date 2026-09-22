@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amplified Agents + Listing Amplified | Founding Member Welcome</title>
+    <title>Larina Matrix | Welcome — Verified Real Estate Professionals</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- PartneroJS -->
     <script>
@@ -55,7 +55,8 @@
 
         .card,
         .invite-card,
-        .how-strip {
+        .how-strip,
+        .journey-strip {
             background: var(--card);
             border-radius: 28px;
             box-shadow: 0 24px 60px rgba(17, 12, 32, 0.22);
@@ -85,7 +86,8 @@
 
         .success-mark svg,
         .invite-icon svg,
-        .how-icon svg {
+        .how-icon svg,
+        .journey-icon svg {
             width: 22px;
             height: 22px;
         }
@@ -122,7 +124,7 @@
             font-size: clamp(2.1rem, 4vw, 3.15rem);
             line-height: 1.06;
             margin-bottom: 16px;
-            max-width: 12ch;
+            max-width: 14ch;
         }
 
         .subtitle {
@@ -218,7 +220,6 @@
             align-self: center;
         }
 
-
         .btn {
             appearance: none;
             border: none;
@@ -260,6 +261,71 @@
             box-shadow: 0 18px 32px rgba(37, 99, 235, 0.24);
         }
 
+        /* Journey strip - Larina Matrix style */
+        .journey-strip {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            padding: 18px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(109, 40, 217, 0.1);
+            box-shadow: 0 12px 28px rgba(17, 12, 32, 0.08);
+        }
+
+        .journey-step {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 18px 16px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(109, 40, 217, 0.1);
+            box-shadow: 0 12px 28px rgba(17, 12, 32, 0.08);
+            min-height: 100%;
+        }
+
+        .journey-step::after {
+            content: "→";
+            position: absolute;
+            top: 50%;
+            right: -12px;
+            transform: translateY(-50%);
+            color: var(--plum-dark);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .journey-step:last-child::after {
+            display: none;
+        }
+
+        .journey-number {
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(109, 40, 217, 0.14) 0%, rgba(37, 99, 235, 0.14) 100%);
+            color: var(--plum-dark);
+            font-weight: 700;
+            font-size: 0.92rem;
+        }
+
+        .journey-step strong {
+            font-size: 0.96rem;
+            line-height: 1.45;
+            color: #23192f;
+        }
+
+        .journey-step span {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        /* How strip for secondary info */
         .how-strip {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -335,6 +401,13 @@
             font-size: 0.88rem;
         }
 
+        .powered-by {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            margin-top: -8px;
+        }
+
         @media (max-width: 920px) {
             .card { padding: 26px 30px 30px; }
             .invite-card { padding: 22px; }
@@ -344,6 +417,12 @@
             .invite-actions {
                 width: 100%;
                 justify-content: flex-start;
+            }
+            .journey-strip {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .journey-step::after {
+                display: none;
             }
             .how-strip {
                 grid-template-columns: 1fr;
@@ -355,7 +434,8 @@
             .container { padding: 20px 14px; }
             .card,
             .invite-card,
-            .how-strip { border-radius: 22px; }
+            .how-strip,
+            .journey-strip { border-radius: 22px; }
             .card { padding: 22px 24px 28px; }
             .invite-card { padding: 20px; }
             .brand-lockup {
@@ -370,7 +450,7 @@
             h1 {
                 font-size: 1.86rem;
                 line-height: 1.06;
-                max-width: 11ch;
+                max-width: 14ch;
             }
             .subtitle {
                 font-size: 0.98rem;
@@ -381,30 +461,36 @@
             .referral-copy p { font-size: 0.9rem; }
             .referral-panel { padding: 16px; }
             .btn { width: 100%; }
+            .journey-strip {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="shell">
+            <!-- Top Section: Larina Matrix Welcome -->
             <section class="card">
                 <div class="success-mark" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M20 6 9 17l-5-5"/>
                     </svg>
                 </div>
-                <div class="brand-lockup" aria-label="Amplified Agents logo">
-                    <img class="brand-mark" id="hero-logo" src="./amplified-agents-landing-logo.svg" alt="Amplified Agents logo">
+                <div class="brand-lockup" aria-label="Larina Matrix logo">
+                    <img class="brand-mark" id="hero-logo" src="./larina-matrix-logo.jpg" alt="Larina Matrix logo">
                 </div>
-                <h1>You’re In!</h1>
-                <p class="subtitle">Welcome to Amplified Agents — Powered by Listing Amplified Founding Members.</p>
-                <p class="supporting-line">You’ve reserved your place in the Founding Beta, where your first live Listing Amplified listing is free and your verified agent profile can become part of Amplified Agents — Powered by Listing Amplified.</p>
+                <h1>You're In!</h1>
+                <p class="subtitle">Welcome to Larina Matrix.</p>
+                <p class="supporting-line">You've taken the first step toward creating your verified professional presence on Larina Matrix. Your next step is to create or sign in to your Listing Amplified account, complete your professional information, and submit it for verification.</p>
             </section>
 
+            <!-- Next Step Card -->
             <section class="invite-card">
                 <div class="section-header">
-                    <h2>Your Founding Membership Includes</h2>
-                    <p>✓ Your first live Listing Amplified listing is free during the Founding Beta.<br>✓ Your referral account is being activated. It usually takes a few minutes for your Partnero referral portal to become available.<br>✓ Founding Beta pricing is $19 per additional listing or $39/month for up to 5 active listings.<br>✓ Your place in the California launch community is reserved.</p>
+                    <h2>Continue Building Your Professional Profile</h2>
+                    <p>Your Listing Amplified account securely powers your Larina Matrix professional profile, verification, service-area information, and future profile updates.</p>
+                    <p style="margin-top: 8px; color: var(--muted); font-size: 0.96rem; line-height: 1.6;">Once your information has been verified, your Larina Matrix profile can become discoverable to consumers searching for real estate professionals in the areas you serve.</p>
                 </div>
 
                 <div class="referral-panel">
@@ -420,55 +506,97 @@
                                 </svg>
                             </span>
                             <div>
-                                <h3>Your Listing Amplified account powers your Amplified Agents profile.</h3>
-                                <p>Your secure Listing Amplified account powers your public profile, professional verification, collaborative listing tools, service areas, and your basic Amplified Agents — Powered by Listing Amplified profile.</p>
+                                <h3>Your professional account and verification are managed through Listing Amplified.</h3>
+                                <p>This step takes about one minute.</p>
                             </div>
                         </div>
-                        <p class="placeholder-note">This step takes about one minute.</p>
                     </div>
 
                     <div class="invite-actions">
-                        <a class="btn btn-primary" id="create-account-button" href="https://app.listingamplified.com/CreateAccount" target="_blank" rel="noopener noreferrer">Create My Listing Amplified Account</a>
+                        <a class="btn btn-primary" id="create-account-button" href="https://app.listingamplified.com/CreateAccount" target="_blank" rel="noopener noreferrer">Continue to My Professional Profile</a>
                     </div>
                 </div>
             </section>
 
-            <section class="how-strip" aria-label="What happens next">
-                <div class="how-step">
-                    <span class="how-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M7 4.5h10"/>
-                            <path d="M7 9h10"/>
-                            <path d="M7 13.5h6"/>
-                            <rect x="4" y="3" width="16" height="18" rx="3"/>
-                        </svg>
-                    </span>
-                    <strong>Your Founding Beta access starts here</strong>
+            <!-- Profile Journey -->
+            <section class="journey-strip" aria-label="Your Larina Matrix journey">
+                <div class="journey-step">
+                    <span class="journey-number">1</span>
+                    <strong>Create or Sign In</strong>
+                    <span>Access your Listing Amplified professional account.</span>
                 </div>
-                <div class="how-step">
-                    <span class="how-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 16l5-5 4 4 7-8"/>
-                            <path d="M20 10V7h-3"/>
-                        </svg>
-                    </span>
-                    <strong>Your Amplified Agents — Powered by Listing Amplified profile, verification, and platform tools come next</strong>
+                <div class="journey-step">
+                    <span class="journey-number">2</span>
+                    <strong>Complete Your Information</strong>
+                    <span>Add your brokerage, license, primary location, service area, and professional information.</span>
                 </div>
-                <div class="how-step">
-                    <span class="how-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 12h7"/>
-                            <path d="M10 6l6-2v16l-6-2"/>
-                            <path d="M18 8.5a4.5 4.5 0 0 1 0 7"/>
-                        </svg>
-                    </span>
-                    <strong>Your Founding Referral Reward access and updates are being activated</strong>
+                <div class="journey-step">
+                    <span class="journey-number">3</span>
+                    <strong>Submit for Verification</strong>
+                    <span>Listing Amplified reviews your professional information.</span>
+                </div>
+                <div class="journey-step">
+                    <span class="journey-number">4</span>
+                    <strong>Your Larina Matrix Profile Goes Live</strong>
+                    <span>Once verified, your public professional profile can become discoverable on Larina Matrix.</span>
                 </div>
             </section>
 
+            <!-- More Than a Professional Profile -->
             <section class="invite-card">
                 <div class="section-header">
-                    <h2>🎉 Your Founding Referral Reward Details</h2>
+                    <h2>More Than a Professional Profile</h2>
+                    <p>Larina Matrix is connected to Listing Amplified, where verified professionals can also access tools designed to help agents collaborate, share listings, create marketing assets, and amplify listing exposure.</p>
+                </div>
+            </section>
+
+            <!-- Founding Beta Benefits (Secondary) -->
+            <section class="invite-card">
+                <div class="section-header">
+                    <h2>Listing Amplified Founding Beta Benefits</h2>
+                    <p>As a Larina Matrix professional, you also have access to Listing Amplified Founding Beta benefits:</p>
+                </div>
+
+                <div class="how-strip" aria-label="Founding Beta benefits">
+                    <div class="how-step">
+                        <span class="how-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M7 4.5h10"/>
+                                <path d="M7 9h10"/>
+                                <path d="M7 13.5h6"/>
+                                <rect x="4" y="3" width="16" height="18" rx="3"/>
+                            </svg>
+                        </span>
+                        <strong>Your first live Listing Amplified listing is free during the Founding Beta</strong>
+                    </div>
+                    <div class="how-step">
+                        <span class="how-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 16l5-5 4 4 7-8"/>
+                                <path d="M20 10V7h-3"/>
+                            </svg>
+                        </span>
+                        <strong>Founding Beta pricing: $19 per additional listing or $39/month for up to 5 active listings</strong>
+                    </div>
+                    <div class="how-step">
+                        <span class="how-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 12h7"/>
+                                <path d="M10 6l6-2v16l-6-2"/>
+                                <path d="M18 8.5a4.5 4.5 0 0 1 0 7"/>
+                            </svg>
+                        </span>
+                        <strong>Your place in the California launch community is reserved</strong>
+                    </div>
+                </div>
+
+                <p class="supporting-line" style="margin-top: 12px; max-width: none;">Standard pricing after beta is $29 per listing or $49/month, while Founding Members who start the $39/month plan during beta keep that rate for their first 12 months of paid membership.</p>
+            </section>
+
+            <!-- Referral Section -->
+            <section class="invite-card">
+                <div class="section-header">
+                    <h2>🎉 Referral Rewards</h2>
                     <p>Your personal referral portal is being activated now and is usually available within a few minutes.</p>
                 </div>
                 <p class="supporting-line" style="margin-top: 0; max-width: none;">The Founding Referral Reward is available to the first 100 qualifying Founding Members. Every 10 professionally verified referred agents earns 1 free listing, 20 referrals earns another, 30 earns another, and buyer or listing agents both count once verified. Each earned free-listing credit expires 12 months after it is earned.</p>
@@ -477,15 +605,14 @@
                 </div>
             </section>
 
-            <div class="footer-note">Thanks for joining the first Founding Members in the California launch community inside Listing Amplified.</div>
+            <div class="footer-note">Thanks for joining Larina Matrix — Verified Real Estate Professionals.</div>
+            <div class="powered-by">Larina Matrix is powered by Listing Amplified.</div>
             <div class="site-footer">
-                <div>Listing Amplified is currently in Founding Beta for the California launch community.</div>
-                <div>Standard pricing after beta is $29 per listing or $49/month, while Founding Members who start the $39/month plan during beta keep that rate for their first 12 months of paid membership.</div>
                 <div class="site-footer-links">
                     <a href="/terms">Terms of Service</a>
                     <a href="/privacy">Privacy Policy</a>
                 </div>
-                <div class="site-footer-copy">© 2026 Listing Amplified. All rights reserved.</div>
+                <div class="site-footer-copy">© 2026 Larina Matrix. All rights reserved.</div>
             </div>
         </div>
     </div>

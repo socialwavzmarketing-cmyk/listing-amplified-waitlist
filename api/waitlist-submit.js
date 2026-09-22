@@ -5,6 +5,9 @@ const REQUIRED_TAGS_BY_SOURCE = {
   },
   'amplified-agents-directory-form': {
     'Amplified Agents Directory': null
+  },
+  'larina-matrix-directory-form': {
+    'Larina Matrix Directory': null
   }
 };
 
