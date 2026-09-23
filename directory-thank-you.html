@@ -596,21 +596,15 @@
         const createAccountButton = document.getElementById('create-account-button');
         if (createAccountButton) {
             try {
-                const stored = JSON.parse(localStorage.getItem('listingAmplifiedWaitlist') || '{}');
-                const params = new URLSearchParams();
-                const firstName = String(stored.firstName || '').trim();
-                const lastName = String(stored.lastName || '').trim();
-                const email = String(stored.email || '').trim();
-
-                if (firstName) params.set('firstName', firstName);
-                if (lastName) params.set('lastName', lastName);
-                if (email) params.set('email', email);
-
-                if ([firstName, lastName, email].some(Boolean)) {
-                    createAccountButton.href = `https://app.listingamplified.com/CreateAccount?${params.toString()}`;
+                const larinaRedirect = sessionStorage.getItem('larinaSignupRedirect');
+                if (larinaRedirect) {
+                    createAccountButton.href = larinaRedirect;
+                } else {
+                    createAccountButton.href = 'https://larinamatrix.com/professional/signup?source=larina-matrix-directory-form';
                 }
             } catch (error) {
-                console.error('Unable to build Create Account prefill link.', error);
+                console.error('Unable to set Larina redirect URL.', error);
+                createAccountButton.href = 'https://larinamatrix.com/professional/signup?source=larina-matrix-directory-form';
             }
         }
     </script>

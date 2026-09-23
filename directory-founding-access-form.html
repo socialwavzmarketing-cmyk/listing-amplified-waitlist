@@ -861,7 +861,9 @@
 
                 try {
                     localStorage.setItem('listingAmplifiedWaitlist', JSON.stringify(payload));
-                    const response = await fetch('/api/waitlist-submit', {
+
+                    // Step 1: GCC submission
+                    const gccResponse = await fetch('/api/waitlist-submit', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -869,9 +871,34 @@
                         body: JSON.stringify(payload)
                     });
 
-                    const result = await response.json().catch(() => ({}));
-                    if (!response.ok || result.ok === false) {
-                        throw new Error(result.error || 'Unable to save your waitlist request right now.');
+                    const gccResult = await gccResponse.json().catch(() => ({}));
+                    if (!gccResponse.ok || gccResult.ok === false) {
+                        throw new Error(gccResult.error || 'Unable to save your waitlist request right now.');
+                    }
+
+                    // Step 2: Larina handoff
+                    const handoffPayload = {
+                        action: 'create',
+                        firstName: payload.firstName,
+                        lastName: payload.lastName,
+                        email: payload.email,
+                        directMobile: payload.phone,
+                        signupSource: 'larina-matrix-directory-form'
+                    };
+
+                    const handoffResponse = await fetch('https://qfvcasmamuwropmrhfre.supabase.co/functions/v1/larina-professional-handoff', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(handoffPayload)
+                    });
+
+                    const handoffResult = await handoffResponse.json().catch(() => ({}));
+                    const redirectUrl = handoffResult.redirectUrl || null;
+
+                    if (redirectUrl) {
+                        sessionStorage.setItem('larinaSignupRedirect', redirectUrl);
                     }
 
                     setTimeout(() => {
