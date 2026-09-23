@@ -847,8 +847,12 @@
         }
 
         if (form) {
+            let isSubmitting = false;
             form.addEventListener('submit', async (event) => {
                 event.preventDefault();
+                if (isSubmitting) return;
+                isSubmitting = true;
+
                 const submitButton = form.querySelector('button[type="submit"]');
                 const payload = Object.fromEntries(new FormData(form).entries());
                 payload.signupSource = 'larina-matrix-directory-form';
@@ -905,6 +909,7 @@
                         window.location.href = '/directory-thank-you.html';
                     }, 250);
                 } catch (error) {
+                    isSubmitting = false;
                     submitButton.textContent = 'Create Your Free Profile';
                     submitButton.disabled = false;
                     submitButton.style.opacity = '1';
