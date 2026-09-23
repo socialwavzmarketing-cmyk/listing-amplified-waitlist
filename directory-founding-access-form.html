@@ -5,17 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Larina Matrix | Verified Real Estate Professionals — California</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- PartneroJS -->
-    <script>
-     (function(p,t,n,e,r,o){ p['__partnerObject']=r;function f(){
-     var c={ a:arguments,q:[]};var r=this.push(c);return "number"!=typeof r?r:f.bind(c.q);}
-     f.q=f.q||[];p[r]=p[r]||f.bind(f.q);p[r].q=p[r].q||f.q;o=t.createElement(n);
-     var _=t.getElementsByTagName(n)[0];o.async=1;o.src=e+'?v'+(~~(new Date().getTime()/1e6));
-     _.parentNode.insertBefore(o,_);})(window, document, 'script', 'https://app.partnero.com/js/universal.js', 'po');
-     po('settings', 'assets_host', 'https://assets.partnero.com');
-     po('program', 'C2WUJDUI', 'load');
-    </script>
-    <!-- End PartneroJS -->
     <style>
         :root {
             --plum: #6d28d9;
@@ -116,44 +105,6 @@
             max-width: 54ch;
         }
 
-        .video-intro {
-            margin-top: 30px;
-            margin-bottom: 12px;
-        }
-
-        .video-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.18rem;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            margin-bottom: 6px;
-        }
-
-        .video-copy {
-            color: var(--muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            max-width: 52ch;
-        }
-
-        .teaser-video {
-            margin: 0 auto 0;
-            width: 100%;
-            max-width: 820px;
-            border-radius: 24px;
-            overflow: hidden;
-            background: #120d1d;
-            box-shadow: 0 18px 40px rgba(17, 12, 32, 0.18);
-            border: 1px solid rgba(109, 40, 217, 0.14);
-        }
-
-        .teaser-video iframe {
-            display: block;
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            border: 0;
-        }
-
         .support-list {
             list-style: none;
             display: grid;
@@ -217,7 +168,7 @@
 
         .journey-strip {
             display: grid;
-            grid-template-columns: repeat(5, minmax(0, 1fr));
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 12px;
             align-items: stretch;
         }
@@ -539,6 +490,21 @@
             font-size: 0.88rem;
         }
 
+        .optional-section {
+            padding: 24px;
+        }
+
+        .optional-section .value-copy {
+            margin-bottom: 12px;
+        }
+
+        .helper-text {
+            font-size: 0.85rem;
+            color: #74688a;
+            line-height: 1.5;
+            margin-top: 4px;
+        }
+
         @media (max-width: 920px) {
             .shell {
                 max-width: 680px;
@@ -609,18 +575,6 @@
                 line-height: 1.58;
                 margin-bottom: 14px;
             }
-            .video-intro {
-                margin-top: 24px;
-                margin-bottom: 10px;
-            }
-            .video-title {
-                font-size: 1.05rem;
-                margin-bottom: 5px;
-            }
-            .video-copy {
-                font-size: 0.9rem;
-                line-height: 1.55;
-            }
             .support-list {
                 gap: 10px;
                 margin-top: 6px;
@@ -669,49 +623,43 @@
         <div>
             <div class="shell">
                 <div class="hero-stack">
+                    <!-- Hero -->
                     <section class="panel">
                         <div class="brand-lockup" aria-label="Larina Matrix logo">
                             <img class="brand-mark" id="hero-logo" src="./larina-matrix-logo.jpg" alt="Larina Matrix logo">
                         </div>
                         <p style="color: var(--muted); font-size: 0.92rem; font-weight: 500; margin-bottom: 10px; letter-spacing: 0.02em;">Where Local Real Estate Connections Begin.</p>
                         <h1>Build Your Professional Presence on Larina Matrix</h1>
-                        <p class="subtitle">Create or claim your free professional profile, get verified through Listing Amplified, and become discoverable by consumers exploring the communities you serve.</p>
+                        <p class="subtitle">Create or claim your free Larina Matrix professional profile, complete professional verification, and become discoverable to consumers searching the communities you serve.</p>
 
                         <ul class="support-list">
-                            <li><span class="check">✓</span><span><strong>Free Professional Profile</strong> — Every verified professional receives a free Larina Matrix Basic profile.</span></li>
+                            <li><span class="check">✓</span><span><strong>Free Professional Profile</strong> — Every approved professional can publish a free Larina Matrix Basic Profile.</span></li>
                             <li><span class="check">✓</span><span><strong>Verified Professional Presence</strong> — Display your brokerage, license, primary location, service area, and verified status.</span></li>
                             <li><span class="check">✓</span><span><strong>Local Search Visibility</strong> — Consumers can discover professionals by city, county, and name.</span></li>
-                            <li><span class="check">✓</span><span><strong>Direct Consumer Contact</strong> — Your Basic profile includes a private contact form so prospective clients can reach you.</span></li>
+                            <li><span class="check">✓</span><span><strong>Private Consumer Contact</strong> — Your Basic Profile includes a private contact form so prospective clients can reach you without displaying your private contact information.</span></li>
                         </ul>
-                        <div class="video-intro">
-                            <h2 class="video-title">See What Powers Your Professional Profile</h2>
-                            <p class="video-copy">Larina Matrix gives you a public professional presence designed for local discovery. Listing Amplified handles professional verification, profile management, and access to collaborative listing and marketing tools connected to your Larina Matrix presence.</p>
-                        </div>
-                        <div class="teaser-video">
-                            <iframe src="https://www.youtube-nocookie.com/embed/eAKnufEysZ0?rel=0" title="Listing Amplified teaser video" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                        </div>
-                        <p class="founding-note">Your Larina Matrix profile is managed through Listing Amplified, where your professional information and verification are securely maintained.</p>
                     </section>
 
+                    <!-- Your Profile Journey -->
                     <section class="value-section journey-section">
                         <div class="journey-header">
                             <h2 class="journey-title">Your Profile Journey</h2>
-                            <p class="journey-copy">A simple path from profile discovery to verified professional presence.</p>
+                            <p class="journey-copy">A simple path from account creation to a verified professional presence.</p>
                         </div>
 
                         <div class="journey-strip" aria-label="Profile journey steps">
-                            <div class="journey-step"><span class="journey-number">1</span><strong>Find or Create Your Profile</strong><span style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Search Larina Matrix to see whether a professional profile already exists for you.</span></div>
-                            <div class="journey-step"><span class="journey-number">2</span><strong>Create Your Listing Amplified Account</strong><span style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Sign in or create your free Listing Amplified professional account.</span></div>
-                            <div class="journey-step"><span class="journey-number">3</span><strong>Complete Your Professional Information</strong><span style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Add your brokerage, license, location, and service-area information.</span></div>
-                            <div class="journey-step"><span class="journey-number">4</span><strong>Get Verified</strong><span style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Listing Amplified reviews your professional information.</span></div>
-                            <div class="journey-step"><span class="journey-number">5</span><strong>Your Larina Matrix Profile Goes Live</strong><span style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Once verified, your Larina Matrix profile becomes claimed and appears as License Verified.</span></div>
+                            <div class="journey-step"><span class="journey-number">1</span><strong>Create or Sign In</strong><span style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Create your Larina Matrix professional account or sign in to an existing account.</span></div>
+                            <div class="journey-step"><span class="journey-number">2</span><strong>Complete Your Professional Information</strong><span style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Add your brokerage, license, primary location, service areas, and professional information.</span></div>
+                            <div class="journey-step"><span class="journey-number">3</span><strong>Submit for Verification</strong><span style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Larina Matrix reviews your professional information before your profile is published.</span></div>
+                            <div class="journey-step"><span class="journey-number">4</span><strong>Your Larina Matrix Profile Goes Live</strong><span style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Once approved, your professional profile can become discoverable on Larina Matrix.</span></div>
                         </div>
                     </section>
 
+                    <!-- What Your Free Basic Profile Includes -->
                     <section class="value-section">
                         <div class="value-header">
                             <h2 class="value-title">What Your Free Basic Profile Includes</h2>
-                            <p class="value-copy">Your free Larina Matrix Basic profile gives consumers the essential professional information they need to discover and connect with you.</p>
+                            <p class="value-copy">Your free Larina Matrix Basic Profile gives consumers the essential professional information they need to discover and connect with you.</p>
                         </div>
 
                         <div class="value-grid">
@@ -757,7 +705,7 @@
                                 </span>
                                 <div class="value-body">
                                     <h3>Service Area Presence</h3>
-                                    <p>Show the primary city and county where you serve clients.</p>
+                                    <p>Show the primary city and county where you serve clients, along with additional service counties when selected.</p>
                                 </div>
                             </article>
 
@@ -774,37 +722,38 @@
                                 </div>
                             </article>
                         </div>
-
-                        <p class="founding-note"><strong>Larina Matrix</strong> gives you a public professional presence consumers can discover by location, while <strong>Listing Amplified</strong> powers your verification and profile management.</p>
                     </section>
                 </div>
 
-                <section class="value-section">
+                <!-- Interested in Listing Amplified? -->
+                <section class="value-section optional-section">
                     <div class="value-header">
-                        <h2 class="value-title">More Than a Professional Profile</h2>
-                        <p class="value-copy">Your Larina Matrix profile is connected to Listing Amplified, where verified professionals can access tools designed to help agents collaborate, share listings, create marketing assets, and amplify listing exposure.</p>
+                        <h2 class="value-title">Interested in Listing Amplified?</h2>
+                        <p class="value-copy">Listing Amplified offers separate tools for real estate professionals who want to collaborate, create listing media, and amplify listing exposure. Participation is optional and can be activated separately later.</p>
                     </div>
-                    <p class="founding-note" style="margin-top:0;"><a href="https://founders.listingamplified.com/founding-access-form.html" target="_blank" rel="noopener noreferrer" style="color: var(--plum); font-weight: 600; text-decoration: none;">Explore Listing Amplified →</a></p>
+                    <p class="founding-note" style="margin-top:0;"><a href="https://founders.listingamplified.com/founding-access-form.html" target="_blank" rel="noopener noreferrer" style="color: var(--plum); font-weight: 600; text-decoration: none;">Learn About Listing Amplified →</a></p>
                 </section>
 
+                <!-- Why Claim Your Profile? -->
                 <section class="value-section">
                     <div class="value-header">
                         <h2 class="value-title">Why Claim Your Profile?</h2>
-                        <p class="value-copy">Claiming your Larina Matrix profile connects your verified Listing Amplified account to your public professional presence so you can keep your information accurate and current.</p>
+                        <p class="value-copy">If a professional profile already exists for you on Larina Matrix, claiming it gives you ownership of that profile so you can keep your professional information accurate and current.</p>
                     </div>
                     <ul class="support-list">
-                        <li><span class="check">✓</span><span>Show consumers that your professional information has been verified</span></li>
                         <li><span class="check">✓</span><span>Keep your brokerage, location, and service-area information current</span></li>
+                        <li><span class="check">✓</span><span>Complete Larina Matrix professional verification</span></li>
                         <li><span class="check">✓</span><span>Receive consumer inquiries through your profile</span></li>
-                        <li><span class="check">✓</span><span>Connect your public Larina Matrix profile to your Listing Amplified account</span></li>
-                        <li><span class="check">✓</span><span>Access additional Listing Amplified tools if you choose to use them</span></li>
+                        <li><span class="check">✓</span><span>Manage your professional profile information</span></li>
+                        <li><span class="check">✓</span><span>Access future Larina Matrix profile enhancements as they become available</span></li>
                     </ul>
                 </section>
 
+                <!-- Create Your Free Profile Form -->
                 <section class="form-card">
                     <div class="form-top">
                         <div class="form-title">Create Your Free Profile</div>
-                        <p class="form-copy">Don't see an existing Larina Matrix profile for yourself? Get started here to create your Listing Amplified account and verified professional profile.</p>
+                        <p class="form-copy">Don't see an existing Larina Matrix profile for yourself? Get started here to create your professional account and verified profile.</p>
                         <p class="form-copy" style="margin-top: 12px; font-size: 0.95rem;"><a href="https://larinamatrix.com/agents" id="find-profile-link" style="color: var(--plum); font-weight: 600; text-decoration: none;">Already have a profile? Find Your Profile to Claim It →</a></p>
                     </div>
 
@@ -825,8 +774,9 @@
                                 <input id="email" name="email" type="email" autocomplete="email" required>
                             </div>
                             <div class="field">
-                                <label for="phone">Phone <span style="font-weight:400;color:#74688a;">(optional)</span></label>
-                                <input id="phone" name="phone" type="tel" autocomplete="tel">
+                                <label for="phone">Direct Mobile Number *</label>
+                                <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+                                <p class="helper-text">Required for account and verification contact. Please use your direct mobile number, not an office number. Your mobile number is kept private and is not displayed on your public Larina Matrix profile.</p>
                             </div>
                         </div>
 
@@ -835,7 +785,7 @@
                         </div>
                     </form>
 
-                    <p class="reassurance">Larina Matrix Basic profiles are free. Professional verification through Listing Amplified is required to claim or publish a verified Larina Matrix profile. Additional Listing Amplified features may have separate pricing.</p>
+                    <p class="reassurance">Larina Matrix Basic Profiles are free. After creating your Larina Matrix account, you will complete your professional information and submit it for verification before your profile is published.</p>
                     <p class="status-message" id="form-status">Something went wrong. Please try again.</p>
                 </section>
             </div>
@@ -924,25 +874,6 @@
                         throw new Error(result.error || 'Unable to save your waitlist request right now.');
                     }
 
-                    const partneroName = [payload.firstName, payload.lastName].filter(Boolean).join(' ').trim();
-                    if (typeof window.po === 'function' && payload.email) {
-                        try {
-                            window.po('customers', 'signup', {
-                                data: {
-                                    key: payload.email,
-                                    email: payload.email,
-                                    name: partneroName || null,
-                                    options: {
-                                        integration: 'listing_amplified_waitlist',
-                                        referral_url: window.location.href
-                                    }
-                                }
-                            }, 'C2WUJDUI');
-                        } catch (partneroError) {
-                            console.error('Partnero signup failed to fire.', partneroError);
-                        }
-                    }
-
                     setTimeout(() => {
                         window.location.href = '/directory-thank-you.html';
                     }, 250);
@@ -957,7 +888,6 @@
                 }
             });
         }
-
     </script>
 </body>
 </html>
