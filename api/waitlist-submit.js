@@ -164,8 +164,55 @@ async function ensureRequiredTags(gccApiKey, signupSource = '') {
   return Object.values(tagIds);
 }
 
+async function findExistingContact(gccApiKey, email) {
+  const response = await fetchJson(`${GCC_BASE}/contacts?search=${encodeURIComponent(email)}`, {
+    headers: { 'X-API-KEY': gccApiKey }
+  });
+  const contacts = response?.data?.contacts || [];
+  return contacts.find((contact) => normalizeEmail(contact.email) === email) || null;
+}
+
+async function getContactById(gccApiKey, id) {
+  const response = await fetchJson(`${GCC_BASE}/contacts/${id}`, {
+    headers: { 'X-API-KEY': gccApiKey }
+  });
+  return response?.data || null;
+}
+
+function contactHasTag(contact, tagId) {
+  if (!contact || !tagId) return false;
+  const tags = contact.tags || [];
+  return tags.some((tag) => {
+    if (typeof tag === 'string') return tag === tagId;
+    return tag?._id === tagId || String(tag?._id) === String(tagId);
+  });
+}
+
 /**
- * NEW: Use GCC's tags/fire endpoint to create contact + apply tag in one call.
+ * Update contact without firing tags. Used when contact already has the tag.
+ */
+async function updateContactOnly(gccApiKey, record) {
+  const payload = {
+    phone: record.phone || '',
+    email: record.email,
+    firstName: record.firstName || '',
+    lastName: record.lastName || ''
+  };
+
+  const result = await fetchJson(`${GCC_BASE}/contacts`, {
+    method: 'POST',
+    headers: {
+      'X-API-KEY': gccApiKey,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  return result?.data || result;
+}
+
+/**
+ * Use GCC's tags/fire endpoint to create contact + apply tag in one call.
  * This replaces the broken two-step contact creation + tag attachment.
  */
 async function fireTagForContact(gccApiKey, record, tagIds) {
@@ -261,14 +308,38 @@ module.exports = async (req, res) => {
     // Get tag IDs (ensures tag exists, looks up by name if needed)
     const requiredTagIds = await ensureRequiredTags(gccApiKey, record.signupSource);
 
-    // Use the new tags/fire endpoint: creates contact + applies tag in one call
-    const contactResult = await fireTagForContact(gccApiKey, record, requiredTagIds);
+    // DEDUPLICATION: For larina-matrix-directory-form, check if contact already has the tag
+    const isLarinaDirectory = record.signupSource === 'larina-matrix-directory-form';
+    let contactResult = null;
+    let action = 'fired';
+    let dedupSkipped = false;
+
+    if (isLarinaDirectory && requiredTagIds.length > 0) {
+      const existingContact = await findExistingContact(gccApiKey, record.email);
+      if (existingContact?._id) {
+        const fullContact = await getContactById(gccApiKey, existingContact._id);
+        const hasTag = contactHasTag(fullContact, requiredTagIds[0]);
+        if (hasTag) {
+          // Contact already has Larina Matrix Directory tag — update only, don't re-fire
+          contactResult = await updateContactOnly(gccApiKey, record);
+          action = 'updated';
+          dedupSkipped = true;
+        }
+      }
+    }
+
+    if (!dedupSkipped) {
+      // Use the new tags/fire endpoint: creates contact + applies tag in one call
+      contactResult = await fireTagForContact(gccApiKey, record, requiredTagIds);
+      action = contactResult?._id ? 'created_or_updated' : 'fired';
+    }
 
     sendJson(res, 200, {
       ok: true,
       redirected: true,
-      syncStatus: 'synced',
-      action: contactResult?._id ? 'created_or_updated' : 'fired'
+      syncStatus: dedupSkipped ? 'synced_deduped' : 'synced',
+      action,
+      dedupSkipped: dedupSkipped || undefined
     });
   } catch (error) {
     // Silent failure: user still goes to thank-you page
