@@ -15,5 +15,16 @@
       "destination": "/directory-thank-you.html",
       "permanent": false
     }
+  ],
+  "headers": [
+    {
+      "source": "/larina-to-la.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
   ]
 }

@@ -8,6 +8,15 @@ const REQUIRED_TAGS_BY_SOURCE = {
   },
   'larina-matrix-directory-form': {
     'Larina Matrix Directory': null
+  },
+  'larina-to-la-interest': {
+    'Larina to LA Interest': '6ad8e3ce85575d06ca673252'
+  },
+  'larina-to-la-activated': {
+    'Larina to LA Activated': '6ad8e3d32aebd0bbd35b2800'
+  },
+  'larina-to-la-account-created': {
+    'Larina to LA Account Created': '6ad8e3d785575d06ca673263'
   }
 };
 
@@ -308,19 +317,21 @@ module.exports = async (req, res) => {
     // Get tag IDs (ensures tag exists, looks up by name if needed)
     const requiredTagIds = await ensureRequiredTags(gccApiKey, record.signupSource);
 
-    // DEDUPLICATION: For larina-matrix-directory-form, check if contact already has the tag
+    // DEDUPLICATION: For larina-matrix-directory-form and larina-to-la paths,
+    // check if contact already has the tag before firing
     const isLarinaDirectory = record.signupSource === 'larina-matrix-directory-form';
+    const isLarinaToLA = record.signupSource === 'larina-to-la-interest' || record.signupSource === 'larina-to-la-activated';
     let contactResult = null;
     let action = 'fired';
     let dedupSkipped = false;
 
-    if (isLarinaDirectory && requiredTagIds.length > 0) {
+    if ((isLarinaDirectory || isLarinaToLA) && requiredTagIds.length > 0) {
       const existingContact = await findExistingContact(gccApiKey, record.email);
       if (existingContact?._id) {
         const fullContact = await getContactById(gccApiKey, existingContact._id);
         const hasTag = contactHasTag(fullContact, requiredTagIds[0]);
         if (hasTag) {
-          // Contact already has Larina Matrix Directory tag — update only, don't re-fire
+          // Contact already has the tag — update only, don't re-fire
           contactResult = await updateContactOnly(gccApiKey, record);
           action = 'updated';
           dedupSkipped = true;
